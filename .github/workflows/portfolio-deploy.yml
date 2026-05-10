@@ -27,10 +27,13 @@ jobs:
         # Setup GitHub Pages
             - name: Setup GitHub Pages
               uses: actions/configure-pages@v4
+              
         
-        # Static codes artifects       
+        # Static codes artifacts      
             - name: Upload statis files
-              uses: actions/upload-pages-artifect@v4
+              uses: actions/upload-pages-artifact@v4
+              with:
+                path: "."
         
         #  Make page live    
             - name: Delpoy to Github Pages
