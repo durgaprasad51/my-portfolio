@@ -3,139 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Durga Prasad | DevOps Engineer</title>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Durga Prasad | AWS DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:#020617;color:#e2e8f0;font-family:'Poppins',sans-serif}
+body{font-family:'Poppins',sans-serif;background:#0f172a;color:#e2e8f0}
 
-header{display:flex;justify-content:space-between;align-items:center;padding:12px 6%;background:#020617;border-bottom:1px solid #1e293b}
-header h1{color:#38bdf8;font-size:18px}
-nav a{margin-left:15px;font-size:14px;text-decoration:none;color:#94a3b8}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;background:#020617}
+header h1{color:#38bdf8}
+nav a{margin-left:20px;color:#cbd5f5;text-decoration:none;font-weight:500}
 nav a:hover{color:#38bdf8}
 
-.hero{padding:60px 6%;display:flex;flex-direction:column;gap:15px}
-.hero h2{font-size:28px;color:#38bdf8}
-.hero p{font-size:14px;color:#94a3b8;max-width:600px}
-.hero button{width:160px;padding:10px;border:none;background:#38bdf8;color:#020617;border-radius:6px;font-size:14px;cursor:pointer}
+.hero{display:flex;align-items:center;justify-content:space-between;padding:80px 8%;background:linear-gradient(135deg,#0f172a,#020617)}
+.hero-text{max-width:50%}
+.hero h2{font-size:42px;color:#38bdf8;margin-bottom:20px}
+.hero p{color:#94a3b8;margin-bottom:20px}
+.hero button{padding:12px 25px;background:#38bdf8;border:none;color:#020617;font-weight:600;border-radius:6px;cursor:pointer}
+.hero img{width:350px;border-radius:12px}
 
-.terminal{
-background:#020617;
-border:1px solid #1e293b;
-border-radius:8px;
-padding:15px;
-font-family:'Fira Code', monospace;
-font-size:13px;
-color:#22c55e;
-margin-top:10px
+.section{padding:60px 8%}
+.section h2{text-align:center;color:#38bdf8;margin-bottom:40px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.card{background:#020617;padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,0.5)}
+.card h3{color:#38bdf8;margin-bottom:10px}
+.card p{color:#94a3b8;font-size:14px}
+
+.skills span{display:inline-block;background:#1e293b;padding:8px 14px;margin:5px;border-radius:20px;font-size:13px}
+
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.timeline div{background:#020617;padding:20px;border-radius:10px}
+
+.contact form{display:flex;flex-direction:column;max-width:500px;margin:auto}
+.contact input,.contact textarea{margin-bottom:15px;padding:12px;border:none;border-radius:8px}
+.contact button{padding:12px;background:#38bdf8;border:none;color:#020617;font-weight:600;border-radius:8px}
+
+footer{text-align:center;padding:20px;background:#020617;color:#64748b}
+
+@media(max-width:900px){
+.hero{flex-direction:column;text-align:center}
+.hero-text{max-width:100%}
+.hero img{margin-top:30px}
 }
-
-.section{padding:40px 6%}
-.section h2{font-size:18px;color:#38bdf8;margin-bottom:15px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-
-.card{background:#020617;border:1px solid #1e293b;padding:15px;border-radius:8px;font-size:13px;transition:0.2s}
-.card:hover{border-color:#38bdf8;transform:translateY(-3px)}
-
-.skills span{display:inline-block;background:#020617;border:1px solid #1e293b;padding:6px 10px;margin:4px;border-radius:6px;font-size:12px}
-
-.project-card h3{font-size:14px;color:#38bdf8;margin-bottom:6px}
-.project-card p{font-size:12px;color:#94a3b8}
-
-.timeline{font-size:13px;color:#94a3b8}
-.timeline div{margin-bottom:10px}
-
-.contact form{display:flex;flex-direction:column;gap:10px;max-width:400px}
-.contact input,.contact textarea{padding:8px;background:#020617;border:1px solid #1e293b;color:#e2e8f0;border-radius:6px}
-.contact button{padding:10px;background:#38bdf8;color:#020617;border:none;border-radius:6px;cursor:pointer}
-
-footer{padding:15px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #1e293b}
-
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>durga@devops:~$</h1>
+<h1>Durga Prasad</h1>
 <nav>
-<a href="#about">about</a>
-<a href="#skills">skills</a>
-<a href="#projects">projects</a>
-<a href="#contact">contact</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#experience">Experience</a>
+<a href="#contact">Contact</a>
 </nav>
 </header>
 
 <section class="hero">
-<h2>$ whoami</h2>
-<p>AWS DevOps Engineer with 17+ years of experience building scalable, automated cloud infrastructure.</p>
+<div class="hero-text">
+<h2>AWS DevOps Engineer</h2>
+<p>17+ years of experience building scalable infrastructure, automating deployments, and designing cloud-native systems using AWS and DevOps tools.</p>
 <button onclick="document.getElementById('contact').scrollIntoView()">Hire Me</button>
-
-<div class="terminal">
-$ skills --list<br>
-AWS | Terraform | Docker | Kubernetes | Jenkins<br>
-Linux | Python | Bash | CI/CD | Monitoring
 </div>
+<img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1" alt="devops">
 </section>
 
 <section id="about" class="section">
-<h2>$ about_me</h2>
-<p style="font-size:13px;color:#94a3b8;max-width:700px">
-Experienced DevOps Engineer specializing in AWS cloud, automation, CI/CD pipelines, and infrastructure as code. Strong background in Linux system administration and building reliable distributed systems.
+<h2>About Me</h2>
+<p style="text-align:center;max-width:800px;margin:auto;color:#94a3b8">
+I am Durga Prasad, a highly experienced AWS DevOps Engineer with over 17 years in IT infrastructure and system administration. I specialize in cloud automation, CI/CD pipelines, Kubernetes orchestration, and scalable system architecture.
 </p>
 </section>
 
 <section id="skills" class="section">
-<h2>$ tech_stack</h2>
-<div class="skills">
+<h2>Skills</h2>
+<div class="skills" style="text-align:center">
 <span>AWS</span><span>Terraform</span><span>Docker</span><span>Kubernetes</span>
-<span>Jenkins</span><span>Ansible</span><span>GitHub</span>
+<span>Jenkins</span><span>Ansible</span><span>GitHub Actions</span>
 <span>Linux</span><span>Python</span><span>Bash</span>
+<span>CloudWatch</span><span>Prometheus</span><span>Grafana</span>
 </div>
 </section>
 
 <section id="projects" class="section">
-<h2>$ projects</h2>
+<h2>Projects</h2>
 <div class="grid">
-
-<div class="card project-card">
+<div class="card">
 <h3>CI/CD Automation</h3>
-<p>Built automated pipelines using Jenkins & GitHub Actions reducing deployment time.</p>
+<p>Automated deployment pipelines using Jenkins and GitHub Actions improving efficiency by 70%.</p>
 </div>
-
-<div class="card project-card">
-<h3>Terraform AWS Infra</h3>
-<p>Provisioned scalable AWS infrastructure using Terraform with secure networking.</p>
+<div class="card">
+<h3>AWS Infrastructure</h3>
+<p>Designed scalable AWS infrastructure using Terraform including VPC, EC2, RDS, IAM.</p>
 </div>
-
-<div class="card project-card">
+<div class="card">
 <h3>Kubernetes Deployment</h3>
-<p>Managed microservices with Kubernetes, Helm, and auto-scaling clusters.</p>
+<p>Managed microservices deployments with Kubernetes and Helm ensuring high availability.</p>
 </div>
-
-<div class="card project-card">
-<h3>Serverless Apps</h3>
-<p>Designed Lambda-based architectures with API Gateway & DynamoDB.</p>
+<div class="card">
+<h3>Serverless Architecture</h3>
+<p>Built event-driven systems using AWS Lambda, API Gateway and DynamoDB.</p>
 </div>
-
-<div class="card project-card">
-<h3>Monitoring Stack</h3>
-<p>Implemented CloudWatch, Prometheus & Grafana monitoring systems.</p>
 </div>
+</section>
 
+<section id="experience" class="section">
+<h2>Experience</h2>
+<div class="timeline">
+<div>
+<h3>Career</h3>
+<p>17+ years across infrastructure, system admin, and DevOps engineering roles.</p>
+</div>
+<div>
+<h3>Organizations</h3>
+<p>TRIHARI SMART SOLUTION<br>ARTECH INFOSYSTEM<br>NITYO INFOTECH SERVICES<br>PCS TECHNOLOGY<br>TEAM COMPUTERS</p>
+</div>
 </div>
 </section>
 
 <section id="contact" class="section contact">
-<h2>$ contact_me</h2>
+<h2>Contact</h2>
 <form>
-<input type="text" placeholder="name" required>
-<input type="email" placeholder="email" required>
-<textarea rows="4" placeholder="message"></textarea>
-<button type="submit">send</button>
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea rows="5" placeholder="Message"></textarea>
+<button type="submit">Send Message</button>
 </form>
 </section>
 
