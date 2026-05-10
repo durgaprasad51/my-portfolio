@@ -3,53 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Durga Prasad | AWS DevOps Engineer</title>
+<title>Durga Prasad | DevOps Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#0f172a;color:#e2e8f0}
+body{font-family:'Poppins',sans-serif;background:#020617;color:#e2e8f0;overflow-x:hidden}
 
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;background:#020617}
+/* NAV */
+header{position:fixed;width:100%;top:0;display:flex;justify-content:space-between;padding:20px 8%;z-index:1000;background:rgba(2,6,23,0.6);backdrop-filter:blur(12px)}
 header h1{color:#38bdf8}
-nav a{margin-left:20px;color:#cbd5f5;text-decoration:none;font-weight:500}
-nav a:hover{color:#38bdf8}
+nav a{margin-left:20px;color:#cbd5f5;text-decoration:none;position:relative}
+nav a::after{content:"";position:absolute;width:0;height:2px;background:#38bdf8;bottom:-4px;left:0;transition:.3s}
+nav a:hover::after{width:100%}
 
-.hero{display:flex;align-items:center;justify-content:space-between;padding:80px 8%;background:linear-gradient(135deg,#0f172a,#020617)}
+/* HERO */
+.hero{height:100vh;display:flex;align-items:center;justify-content:space-between;padding:0 8%;position:relative}
 .hero-text{max-width:50%}
-.hero h2{font-size:42px;color:#38bdf8;margin-bottom:20px}
-.hero p{color:#94a3b8;margin-bottom:20px}
-.hero button{padding:12px 25px;background:#38bdf8;border:none;color:#020617;font-weight:600;border-radius:6px;cursor:pointer}
-.hero img{width:350px;border-radius:12px}
+.hero h2{font-size:56px;line-height:1.2;background:linear-gradient(90deg,#38bdf8,#9333ea);-webkit-background-clip:text;color:transparent}
+.hero p{margin:20px 0;color:#94a3b8;font-size:18px}
+.hero button{padding:14px 28px;background:linear-gradient(90deg,#38bdf8,#9333ea);border:none;border-radius:8px;color:#fff;cursor:pointer;transition:.3s}
+.hero button:hover{transform:scale(1.05)}
+.hero img{width:380px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.6);animation:float 6s ease-in-out infinite}
 
-.section{padding:60px 8%}
-.section h2{text-align:center;color:#38bdf8;margin-bottom:40px}
+/* PARALLAX BLOBS */
+.blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.4}
+.blob1{width:400px;height:400px;background:#38bdf8;top:-50px;left:-100px}
+.blob2{width:300px;height:300px;background:#9333ea;bottom:-80px;right:-80px}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
-.card{background:#020617;padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,0.5)}
+/* SECTION */
+.section{padding:100px 8%}
+.section h2{text-align:center;font-size:32px;margin-bottom:50px;background:linear-gradient(90deg,#38bdf8,#9333ea);-webkit-background-clip:text;color:transparent}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
+
+/* CARDS */
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:25px;border-radius:16px;backdrop-filter:blur(10px);transition:.4s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-12px) scale(1.02)}
+.card::before{content:"";position:absolute;width:200%;height:200%;background:linear-gradient(120deg,transparent,#38bdf8,transparent);top:-100%;left:-100%;transition:.6s}
+.card:hover::before{top:100%;left:100%}
 .card h3{color:#38bdf8;margin-bottom:10px}
 .card p{color:#94a3b8;font-size:14px}
 
-.skills span{display:inline-block;background:#1e293b;padding:8px 14px;margin:5px;border-radius:20px;font-size:13px}
+/* SKILLS */
+.skill{margin-bottom:20px}
+.skill-name{margin-bottom:6px}
+.bar{height:8px;background:#1e293b;border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,#38bdf8,#9333ea);width:0}
 
-.timeline{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-.timeline div{background:#020617;padding:20px;border-radius:10px}
-
+/* CONTACT */
 .contact form{display:flex;flex-direction:column;max-width:500px;margin:auto}
-.contact input,.contact textarea{margin-bottom:15px;padding:12px;border:none;border-radius:8px}
-.contact button{padding:12px;background:#38bdf8;border:none;color:#020617;font-weight:600;border-radius:8px}
+.contact input,.contact textarea{margin-bottom:15px;padding:14px;border-radius:8px;border:none}
+.contact button{padding:14px;background:linear-gradient(90deg,#38bdf8,#9333ea);border:none;border-radius:8px;color:#fff}
 
 footer{text-align:center;padding:20px;background:#020617;color:#64748b}
 
-@media(max-width:900px){
-.hero{flex-direction:column;text-align:center}
-.hero-text{max-width:100%}
-.hero img{margin-top:30px}
-}
+/* ANIMATIONS */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
+.fade{opacity:0;transform:translateY(40px);transition:1s}
+.fade.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){.hero{flex-direction:column;text-align:center}.hero-text{max-width:100%}.hero img{margin-top:30px;width:280px}}
 </style>
 </head>
 
 <body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
 
 <header>
 <h1>Durga Prasad</h1>
@@ -57,86 +79,71 @@ footer{text-align:center;padding:20px;background:#020617;color:#64748b}
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#projects">Projects</a>
-<a href="#experience">Experience</a>
 <a href="#contact">Contact</a>
 </nav>
 </header>
 
 <section class="hero">
 <div class="hero-text">
-<h2>AWS DevOps Engineer</h2>
-<p>17+ years of experience building scalable infrastructure, automating deployments, and designing cloud-native systems using AWS and DevOps tools.</p>
+<h2>Engineering Cloud Systems That Scale</h2>
+<p>17+ years of DevOps expertise building automated, resilient, and high-performance cloud infrastructures.</p>
 <button onclick="document.getElementById('contact').scrollIntoView()">Hire Me</button>
 </div>
-<img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1" alt="devops">
+<img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
 </section>
 
-<section id="about" class="section">
+<section id="about" class="section fade">
 <h2>About Me</h2>
-<p style="text-align:center;max-width:800px;margin:auto;color:#94a3b8">
-I am Durga Prasad, a highly experienced AWS DevOps Engineer with over 17 years in IT infrastructure and system administration. I specialize in cloud automation, CI/CD pipelines, Kubernetes orchestration, and scalable system architecture.
+<p style="max-width:800px;margin:auto;text-align:center;color:#94a3b8">
+I am Durga Prasad, a seasoned AWS DevOps Engineer with deep expertise in infrastructure automation, CI/CD pipelines, Kubernetes orchestration, and scalable cloud architecture.
 </p>
 </section>
 
-<section id="skills" class="section">
-<h2>Skills</h2>
-<div class="skills" style="text-align:center">
-<span>AWS</span><span>Terraform</span><span>Docker</span><span>Kubernetes</span>
-<span>Jenkins</span><span>Ansible</span><span>GitHub Actions</span>
-<span>Linux</span><span>Python</span><span>Bash</span>
-<span>CloudWatch</span><span>Prometheus</span><span>Grafana</span>
-</div>
+<section id="skills" class="section fade">
+<h2>Technical Expertise</h2>
+<div class="skill"><div class="skill-name">AWS</div><div class="bar"><div class="bar-fill" data-width="90%"></div></div></div>
+<div class="skill"><div class="skill-name">Terraform</div><div class="bar"><div class="bar-fill" data-width="85%"></div></div></div>
+<div class="skill"><div class="skill-name">Kubernetes</div><div class="bar"><div class="bar-fill" data-width="80%"></div></div></div>
 </section>
 
-<section id="projects" class="section">
+<section id="projects" class="section fade">
 <h2>Projects</h2>
 <div class="grid">
-<div class="card">
-<h3>CI/CD Automation</h3>
-<p>Automated deployment pipelines using Jenkins and GitHub Actions improving efficiency by 70%.</p>
-</div>
-<div class="card">
-<h3>AWS Infrastructure</h3>
-<p>Designed scalable AWS infrastructure using Terraform including VPC, EC2, RDS, IAM.</p>
-</div>
-<div class="card">
-<h3>Kubernetes Deployment</h3>
-<p>Managed microservices deployments with Kubernetes and Helm ensuring high availability.</p>
-</div>
-<div class="card">
-<h3>Serverless Architecture</h3>
-<p>Built event-driven systems using AWS Lambda, API Gateway and DynamoDB.</p>
-</div>
+<div class="card"><h3>CI/CD Automation</h3><p>Reduced deployment time by 70% using Jenkins & GitHub Actions pipelines.</p></div>
+<div class="card"><h3>AWS Infrastructure</h3><p>Built secure, scalable infra using Terraform, VPC, EC2, and IAM.</p></div>
+<div class="card"><h3>Kubernetes</h3><p>Managed containerized workloads with auto-scaling clusters.</p></div>
+<div class="card"><h3>Serverless</h3><p>Designed event-driven systems with Lambda & API Gateway.</p></div>
 </div>
 </section>
 
-<section id="experience" class="section">
-<h2>Experience</h2>
-<div class="timeline">
-<div>
-<h3>Career</h3>
-<p>17+ years across infrastructure, system admin, and DevOps engineering roles.</p>
-</div>
-<div>
-<h3>Organizations</h3>
-<p>TRIHARI SMART SOLUTION<br>ARTECH INFOSYSTEM<br>NITYO INFOTECH SERVICES<br>PCS TECHNOLOGY<br>TEAM COMPUTERS</p>
-</div>
-</div>
-</section>
-
-<section id="contact" class="section contact">
-<h2>Contact</h2>
+<section id="contact" class="section fade contact">
+<h2>Let's Work Together</h2>
 <form>
-<input type="text" placeholder="Your Name" required>
-<input type="email" placeholder="Your Email" required>
-<textarea rows="5" placeholder="Message"></textarea>
-<button type="submit">Send Message</button>
+<input type="text" placeholder="Your Name">
+<input type="email" placeholder="Your Email">
+<textarea placeholder="Tell me about your project"></textarea>
+<button>Send Message</button>
 </form>
 </section>
 
 <footer>
 <p>© 2026 Durga Prasad</p>
 </footer>
+
+<script>
+// FADE IN
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('show')}})});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+// SKILL ANIMATION
+const bars=document.querySelectorAll('.bar-fill');
+window.addEventListener('scroll',()=>{
+bars.forEach(bar=>{
+let rect=bar.getBoundingClientRect().top;
+if(rect<window.innerHeight){bar.style.width=bar.dataset.width}
+})
+})
+</script>
 
 </body>
 </html>
