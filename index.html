@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Durga Prasad | AWS DevOps Engineer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durga Prasad | DevOps Engineer</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --accent: #00ffcc;
-  --bg: #070b12;
+  --bg: #05070d;
   --glass: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.15);
-  --text: #e6f1ff;
-  --muted: #8aa0b6;
+  --border: rgba(255,255,255,0.12);
+  --text: #f5f7fa;
+  --muted: #9aa4b2;
+  --accent: #4fd1ff;
 }
 
-* {margin:0;padding:0;box-sizing:border-box;}
-body {
-  font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at 20% 30%, #0f1a2b, #070b12);
-  color: var(--text);
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background: radial-gradient(circle at 30% 20%, #0b1220, #05070d);
+  color:var(--text);
+  overflow-x:hidden;
 }
 
 /* NAV */
-nav {
-  position: fixed;
+nav{
+  position:fixed;
   width:100%;
   display:flex;
   justify-content:space-between;
   padding:20px 60px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
   background: rgba(0,0,0,0.3);
   border-bottom:1px solid var(--border);
+  z-index:100;
 }
 
-nav a {
-  color: var(--muted);
-  margin-left:25px;
+nav a{
+  margin-left:30px;
   text-decoration:none;
-  transition:0.3s;
+  color:var(--muted);
+  transition:.3s;
 }
-nav a:hover {
-  color: var(--accent);
-  text-shadow:0 0 10px var(--accent);
+
+nav a:hover{
+  color:var(--text);
 }
 
 /* HERO */
-.hero {
+.hero{
   height:100vh;
   display:flex;
   align-items:center;
@@ -57,92 +61,150 @@ nav a:hover {
   padding:40px;
 }
 
-.hero h1 {
-  font-size: clamp(3rem,6vw,5rem);
+.hero h1{
+  font-size: clamp(3rem,6vw,5.5rem);
+  font-weight:700;
+  letter-spacing:-1px;
 }
 
-.hero h1 span {
-  color: var(--accent);
-  text-shadow:0 0 25px var(--accent);
+.hero h1 span{
+  background: linear-gradient(90deg, #4fd1ff, #7afcff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.hero p {
-  margin-top:15px;
+.hero p{
+  margin-top:20px;
   color:var(--muted);
   max-width:650px;
+  font-size:1.1rem;
+  line-height:1.6;
 }
 
-.btn {
-  margin-top:30px;
+/* BUTTON */
+.btn{
+  margin-top:35px;
   display:inline-block;
-  padding:12px 30px;
-  border-radius:30px;
-  border:1px solid var(--accent);
-  color:var(--accent);
+  padding:14px 34px;
+  border-radius:50px;
+  background: rgba(255,255,255,0.08);
+  border:1px solid var(--border);
+  backdrop-filter: blur(10px);
+  color:var(--text);
   text-decoration:none;
-  transition:0.3s;
-}
-.btn:hover {
-  background:var(--accent);
-  color:#000;
-  box-shadow:0 0 20px var(--accent);
+  transition:all .35s ease;
 }
 
-/* GLASS CARD */
-.card {
-  background: var(--glass);
-  border:1px solid var(--border);
-  backdrop-filter: blur(20px);
-  border-radius:20px;
-  padding:30px;
-  transition:0.4s;
-}
-.card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow:0 20px 40px rgba(0,255,200,0.15);
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(79,209,255,0.25);
+  border-color:rgba(79,209,255,0.5);
 }
 
 /* SECTION */
-section {
-  padding:100px 10%;
+section{
+  padding:120px 12%;
 }
 
-h2 {
-  font-size:2rem;
-  margin-bottom:40px;
+h2{
+  font-size:2.4rem;
+  margin-bottom:50px;
 }
 
-/* GRID */
-.grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
+/* GLASS CARD */
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter: blur(30px);
+  border-radius:24px;
+  padding:40px;
+  transition:0.4s ease;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 30px 80px rgba(0,0,0,0.5);
 }
 
 /* SKILLS */
-.skill {
-  padding:10px 15px;
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.skill{
+  padding:10px 18px;
+  border-radius:30px;
+  background: rgba(255,255,255,0.05);
   border:1px solid var(--border);
-  border-radius:20px;
-  display:inline-block;
-  margin:5px;
   font-size:14px;
+  transition:.3s;
+}
+
+.skill:hover{
+  background: rgba(79,209,255,0.15);
+  border-color:rgba(79,209,255,0.4);
 }
 
 /* TIMELINE */
-.timeline {
-  border-left:2px solid var(--border);
-  padding-left:20px;
+.timeline{
+  border-left:1px solid var(--border);
+  padding-left:25px;
 }
-.timeline-item {
-  margin-bottom:30px;
+
+.timeline-item{
+  margin-bottom:35px;
+}
+
+.timeline-item h3{
+  font-size:1.2rem;
+}
+
+.timeline-item p{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+/* CONTACT */
+.contact p{
+  margin:10px 0;
+  color:var(--muted);
 }
 
 /* FOOTER */
-footer {
+footer{
   text-align:center;
-  padding:40px;
+  padding:50px;
   color:var(--muted);
+}
+
+/* AMBIENT GLOW */
+body::before{
+  content:'';
+  position:fixed;
+  width:600px;
+  height:600px;
+  background: radial-gradient(circle, rgba(79,209,255,0.15), transparent 70%);
+  top:-200px;
+  left:-200px;
+  filter: blur(80px);
+}
+
+body::after{
+  content:'';
+  position:fixed;
+  width:500px;
+  height:500px;
+  background: radial-gradient(circle, rgba(120,120,255,0.1), transparent 70%);
+  bottom:-200px;
+  right:-200px;
+  filter: blur(80px);
+}
+
+@media(max-width:768px){
+  nav{padding:20px;}
+  section{padding:100px 20px;}
 }
 </style>
 </head>
@@ -161,19 +223,22 @@ footer {
 
 <section class="hero">
   <div>
-    <h1><span>Durga</span> Prasad</h1>
-    <p>AWS DevOps Engineer specializing in scalable cloud infrastructure, CI/CD automation, and Kubernetes-based systems.</p>
-    <a href="#contact" class="btn">Hire Me</a>
+    <h1><span>Durga Prasad</span></h1>
+    <p>
+      AWS DevOps Engineer crafting scalable cloud infrastructure, CI/CD pipelines,
+      and Kubernetes-based systems with over 17+ years of experience.
+    </p>
+    <a href="#contact" class="btn">Get in touch</a>
   </div>
 </section>
 
 <section id="about">
-  <h2>About Me</h2>
+  <h2>About</h2>
   <div class="card">
     <p>
-      AWS DevOps Engineer with 17+ years of experience across system administration,
-      cloud infrastructure, and automation. Strong expertise in Linux/Windows environments,
-      CI/CD pipelines, Infrastructure as Code, and container orchestration.
+      Experienced DevOps Engineer with deep expertise in AWS, automation, and system administration.
+      Skilled in Terraform, Docker, Kubernetes, and CI/CD pipelines. Proven track record managing
+      large-scale infrastructure and delivering reliable cloud solutions.
     </p>
   </div>
 </section>
@@ -181,7 +246,7 @@ footer {
 <section id="skills">
   <h2>Skills</h2>
   <div class="card">
-    <div>
+    <div class="skills">
       <span class="skill">AWS</span>
       <span class="skill">Terraform</span>
       <span class="skill">Docker</span>
@@ -201,28 +266,24 @@ footer {
 <section id="experience">
   <h2>Experience</h2>
   <div class="card timeline">
-
     <div class="timeline-item">
       <h3>AWS DevOps Engineer (2015–Present)</h3>
-      <p>Worked on AWS (EC2, S3, Lambda, VPC), CI/CD pipelines, Kubernetes deployments, Terraform automation, monitoring systems.</p>
+      <p>Cloud architecture, CI/CD pipelines, Kubernetes, Terraform automation, monitoring systems.</p>
     </div>
-
     <div class="timeline-item">
-      <h3>Senior Windows Admin – IBM Deployment</h3>
+      <h3>Senior Windows Admin (IBM Deployment)</h3>
       <p>Managed 1500+ servers, VMware migrations, Active Directory, DR strategies.</p>
     </div>
-
     <div class="timeline-item">
       <h3>System Administrator</h3>
-      <p>Handled server setup, networking, DNS/DHCP, infrastructure support.</p>
+      <p>Server setup, infrastructure management, networking and security.</p>
     </div>
-
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
-  <div class="card">
+  <div class="card contact">
     <p>Email: durga2.prasad@hotmail.com</p>
     <p>Phone: +91 8860070698</p>
     <p>Location: Dehradun, India</p>
@@ -230,7 +291,7 @@ footer {
 </section>
 
 <footer>
-  © 2026 Durga Prasad — Built with precision & cloud mindset
+  © 2026 Durga Prasad — Designed with precision
 </footer>
 
 </body>
