@@ -3,124 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Durga Prasad</title>
+<title>Durga Prasad | DevOps Engineer</title>
 
 <style>
 
-/* ================= GLOBAL STYLES ================= */
+/* ================= GLOBAL ================= */
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #0f172a;
-    color: white;
-    overflow-x: hidden;
+    background: #020617;
+    color: #00ff9c;
+    font-family: monospace;
+    overflow: hidden;
 }
 
-/* ================= FLOATING BLOBS (ANIMATION) ================= */
-/* These create the modern DevOps animated background */
-.blob {
+/* ================= GRID BACKGROUND ================= */
+body::before {
+    content: "";
     position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-    animation: move 20s infinite alternate ease-in-out;
-}
-
-.blob1 { width: 300px; height: 300px; background: #6366f1; top: 10%; left: 5%; }
-.blob2 { width: 250px; height: 250px; background: #22c55e; bottom: 10%; right: 10%; animation-delay: 5s; }
-.blob3 { width: 200px; height: 200px; background: #ec4899; top: 50%; left: 50%; animation-delay: 10s; }
-
-@keyframes move {
-    0% { transform: translate(0,0); }
-    100% { transform: translate(100px, -50px); }
-}
-
-/* ================= NAVBAR ================= */
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    position: sticky;
-    top: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
-    z-index: 100;
-}
-
-nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-/* ================= SECTIONS ================= */
-section {
-    padding: 80px 20px;
-    max-width: 1100px;
-    margin: auto;
-}
-
-/* Smooth fade animation */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ================= HERO ================= */
-.hero {
-    text-align: center;
-    padding-top: 120px;
-}
-
-.hero h1 {
-    font-size: 3rem;
-}
-
-/* ================= PROJECT CARDS ================= */
-.card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px 0;
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-/* ================= BLOG ================= */
-.blog-post {
-    margin-bottom: 30px;
-}
-
-/* ================= CONTACT ================= */
-input, textarea {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: none;
+    height: 100%;
+    background-image: linear-gradient(#0f172a 1px, transparent 1px),
+                      linear-gradient(90deg, #0f172a 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.2;
 }
 
-button {
-    padding: 10px 20px;
-    background: #6366f1;
+/* ================= TERMINAL ================= */
+#terminal {
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Glow text */
+.glow {
+    color: #00ff9c;
+    text-shadow: 0 0 10px #00ff9c;
+}
+
+/* Input line */
+.input-line {
+    display: flex;
+}
+
+.prompt {
+    margin-right: 10px;
+}
+
+input {
+    background: transparent;
     border: none;
-    color: white;
-    border-radius: 8px;
+    color: #00ff9c;
+    outline: none;
+    width: 100%;
+    font-family: monospace;
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
+@media(max-width: 600px){
+    #terminal {
+        font-size: 14px;
     }
 }
 
@@ -149,32 +91,7 @@ button {
 <section id="home" class="hero fade-in">
     <h1>Durga Prasad</h1>
     <h3>AWS DevOps Engineer</h3>
-    <p>Hello, I'm Rushikesh, an experianced DevOps Engineer with a flair for streamlining operations through the magic of automation, continuous integration, and deployment. Over the past 2 years, I've honed my skills and expertise in the dynamic fields of DevOps and Cloud Computing. My journey has been marked by hands-on experience and a deep dive into the world of cutting-edge technologies.
-
-Fast-forward to today, and I’ve had the privilege of working at Volkswagen Group Digital Solutions [India], is a global technology hub for the Volkswagen Group. My mission is crystal clear - to empower organizations with swifter, more effective software delivery while ensuring unwavering levels of excellence and dependability.
-
-Here are a few technologies I’ve been working with recently:
-
-Amazon Web Services (AWS)
-Google Cloud Platform (GCP)
-Microsoft Azure
-Kubernetes
-Docker
-Linux
-Azure DevOps
-ArgoCD
-Helm
-Jenkins
-Terraform
-AWS CDK
-Ansible
-Python
-New Relic
-Prometheus
-Grafana
-Dynatrace
-Jira
-Confluence.</p>
+    <p>17+ years of experience in IT Infrastructure, Cloud, and DevOps Engineering.</p>
 </section>
 
 <!-- PROJECTS -->
@@ -232,48 +149,139 @@ Confluence.</p>
         </p>
     </div>
 
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="fade-in">
-    <h2>Contact Me</h2>
-
-    <form onsubmit="return submitForm(event)">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Message"></textarea>
-        <button type="submit">Send</button>
-    </form>
-
-    <p>Email: durga2.prasad@hotmail.com</p>
-    <p>Phone: 8860070698</p>
-</section>
-
-<!-- JAVASCRIPT -->
 <script>
 
-/* ================= SCROLL ANIMATION ================= */
-/* Adds 'visible' class when section enters viewport */
-const elements = document.querySelectorAll('.fade-in');
+/* ================= DATA ================= */
 
-function checkScroll() {
-    elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-            el.classList.add('visible');
+const projects = `
+[CI/CD PIPELINE]
+Built Jenkins pipelines automating build/test/deploy
+Tech: Jenkins, GitHub, Maven
+
+[TERRAFORM INFRA]
+Provisioned AWS infra with reusable modules
+Tech: Terraform, AWS EC2, VPC
+
+[KUBERNETES DEPLOYMENT]
+Managed microservices using K8s + Helm
+Tech: Docker, Kubernetes
+`;
+
+const blog = `
+[CI/CD AT SCALE]
+Designing pipelines for reliability & speed
+
+[TERRAFORM BEST PRACTICES]
+Modular infra = scalable infra
+
+[OBSERVABILITY]
+Prometheus + Grafana for real-time monitoring
+`;
+
+const about = `
+Durga Prasad
+AWS DevOps Engineer
+
+17+ years in IT Infrastructure & Cloud
+
+Skills:
+AWS | Terraform | Kubernetes | Docker | Jenkins
+Ansible | Linux | Monitoring | CI/CD
+`;
+
+const contact = `
+Email: durga2.prasad@hotmail.com
+Phone: 8860070698
+Location: Dehradun, India
+`;
+
+/* ================= TERMINAL LOGIC ================= */
+
+const terminal = document.getElementById("terminal");
+
+function newLine() {
+    const line = document.createElement("div");
+    line.classList.add("input-line");
+
+    const prompt = document.createElement("span");
+    prompt.classList.add("prompt");
+    prompt.textContent = "dp@devops:~$";
+
+    const input = document.createElement("input");
+
+    line.appendChild(prompt);
+    line.appendChild(input);
+    terminal.appendChild(line);
+
+    input.focus();
+
+    input.addEventListener("keydown", function(e){
+        if(e.key === "Enter"){
+            handleCommand(input.value);
+            input.disabled = true;
         }
     });
+
+    terminal.scrollTop = terminal.scrollHeight;
 }
 
-window.addEventListener('scroll', checkScroll);
-checkScroll();
+function typeText(text) {
+    let i = 0;
+    const div = document.createElement("div");
+    terminal.appendChild(div);
 
-/* ================= CONTACT FORM ================= */
-/* Frontend-only simulation */
-function submitForm(e) {
-    e.preventDefault();
-    alert("Message sent successfully!");
+    function typing() {
+        if(i < text.length){
+            div.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+            i++;
+            setTimeout(typing, 10);
+        } else {
+            newLine();
+        }
+    }
+
+    typing();
 }
+
+/* ================= COMMAND HANDLER ================= */
+
+function handleCommand(cmd) {
+    cmd = cmd.toLowerCase();
+
+    if(cmd === "help"){
+        typeText(`
+Available Commands:
+help - show commands
+about - about me
+projects - view projects
+blog - read blog
+contact - contact info
+clear - clear terminal
+`);
+    }
+    else if(cmd === "about"){
+        typeText(about);
+    }
+    else if(cmd === "projects"){
+        typeText(projects);
+    }
+    else if(cmd === "blog"){
+        typeText(blog);
+    }
+    else if(cmd === "contact"){
+        typeText(contact);
+    }
+    else if(cmd === "clear"){
+        terminal.innerHTML = "";
+        newLine();
+    }
+    else {
+        typeText("Command not found. Type 'help'");
+    }
+}
+
+/* Start terminal */
+newLine();
 
 </script>
 
