@@ -22,19 +22,19 @@ jobs:
         steps:
         # get access to your Protfolio code via pre-built actions
             - name: Checkout Code
-              uses: actions/checkout@v4 
+              uses: actions/checkout@v5 
         
         # Setup GitHub Pages
             - name: Setup GitHub Pages
-              uses: actions/configure-pages@v4
+              uses: actions/configure-pages@v5
               
         
         # Static codes artifacts      
             - name: Upload statis files
-              uses: actions/upload-pages-artifact@v4
+              uses: actions/upload-pages-artifact@v5
               with:
                 path: "."
         
         #  Make page live    
             - name: Delpoy to Github Pages
-              uses: actions/deploy-pages@v4
+              uses: actions/deploy-pages@v5
