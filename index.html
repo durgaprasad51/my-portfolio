@@ -656,7 +656,7 @@ footer a:hover{color:var(--green);}
 <div class="mob" id="mob">
   <a href="#about"      onclick="closeMob()">About</a>
   <a href="#experience" onclick="closeMob()">Experience</a>
-  <a href="#skills"     onclick="closeMob()">Skills</a>
+  <a href="#skills"     onclick="closeMob()">Tools</a>
   <a href="#education"  onclick="closeMob()">Education</a>
   <a href="#contact"    onclick="closeMob()">Contact</a>
   <a href="YOUR_RESUME_LINK" target="_blank" class="btn btn-g" style="margin-top:8px;">Resume</a>
@@ -686,7 +686,7 @@ footer a:hover{color:var(--green);}
     <h1 class="hero-name">Durga Prasad.</h1>
     <h2 class="hero-role">I build things for <span>the cloud</span>.<span class="cursor-blink"></span></h2>
     <p class="hero-desc">
-      I’m a passionate AWS & DevOps Automation Engineer with over 18 years of experience in IT, including 4+ years specializing in cloud and DevOps practices. 
+      I’m a passionate AWS & DevOps Automation Engineer with over 18 years of experience in IT, including 5+ years specializing in cloud and DevOps practices. 
       I focus on building scalable, secure, and automated infrastructure that empowers teams to deliver faster and more reliably. 
       My journey spans traditional IT systems to modern cloud-native architectures—giving me a strong foundation and a forward-thinking approach.
     </p>
@@ -728,7 +728,7 @@ footer a:hover{color:var(--green);}
         <p>
           Hello! I'm Durga Prasad — an AWS DevOps Engineer based in India with a deep-rooted
           passion for automation, cloud architecture and infrastructure reliability.
-          Over 17+ years I've progressed from bare-metal hardware to orchestrating containerised
+          Over 18+ years I've progressed from bare-metal hardware to orchestrating containerised
           workloads across multi-cloud environments.
         </p>
         <p>
@@ -746,8 +746,8 @@ footer a:hover{color:var(--green);}
           <li>Amazon Web Services</li>
           <li>Kubernetes &amp; Docker</li>
           <li>Terraform / CloudFormation</li>
-          <li>Jenkins / GitLab CI</li>
-          <li>Ansible / Chef / Puppet</li>
+          <li>Jenkins / GitLab CI / GitHub Action</li>
+          <li>Ansible / CI/CD pipeline implementations</li>
           <li>Prometheus &amp; Grafana</li>
           <li>Serverless Framework</li>
           <li>Bash / Shell Scripting</li>
@@ -895,13 +895,15 @@ footer a:hover{color:var(--green);}
         <div class="sk-title"><i class="fa-solid fa-code-branch"></i> CI/CD</div>
         <div class="pills">
           <span class="pill hot">Jenkins</span><span class="pill hot">GitLab CI</span>
-          <span class="pill">TeamCity</span><span class="pill">Git / GitHub</span>
+          <span class="pill">GitHub Action</span><span class="pill">Git / GitHub</span>
           <span class="pill">Maven</span><span class="pill">Serverless FW</span>
         </div>
         <div class="bar-wrap" id="ciBar">
           <div class="bar-row"><span class="bar-label">Jenkins</span><div class="bar-track"><div class="bar-fill" data-w="90"></div></div><span class="bar-pct">90%</span></div>
-          <div class="bar-row"><span class="bar-label">GitLab CI</span><div class="bar-track"><div class="bar-fill" data-w="85"></div></div><span class="bar-pct">85%</span></div>
           <div class="bar-row"><span class="bar-label">Terraform</span><div class="bar-track"><div class="bar-fill" data-w="88"></div></div><span class="bar-pct">88%</span></div>
+          <div class="bar-row"><span class="bar-label">GITHUB Action</span><div class="bar-track"><div class="bar-fill" data-w="90"></div></div><span class="bar-pct">90%</span></div>
+          <div class="bar-row"><span class="bar-label">GitLab CI</span><div class="bar-track"><div class="bar-fill" data-w="70"></div></div><span class="bar-pct">70%</span></div>
+          
         </div>
       </div>
 
@@ -919,7 +921,6 @@ footer a:hover{color:var(--green);}
         <div class="pills">
           <span class="pill hot">Terraform</span><span class="pill hot">Ansible</span>
           <span class="pill">Chef</span><span class="pill">Puppet</span>
-          <span class="pill">Bash Scripting</span>
         </div>
       </div>
 
@@ -927,12 +928,12 @@ footer a:hover{color:var(--green);}
         <div class="sk-title"><i class="fa-solid fa-chart-line"></i> Monitoring</div>
         <div class="pills">
           <span class="pill hot">Prometheus</span><span class="pill hot">Grafana</span>
-          <span class="pill">CloudWatch</span>
+          <span class="pill">CloudWatch</span><span class="pill hot">Open Telemetry</span>
         </div>
       </div>
 
       <div class="sk-card rv">
-        <div class="sk-title"><i class="fa-solid fa-server"></i> OS &amp; Networking</div>
+        <div class="sk-title"><i class="fa-solid fa-server"></i> OS &amp; Services</div>
         <div class="pills">
           <span class="pill">CentOS</span><span class="pill">Ubuntu</span>
           <span class="pill">Win Server '03–'16</span>
@@ -950,11 +951,11 @@ footer a:hover{color:var(--green);}
         </div>
       </div>
 
-      <!-- LANGUAGES card -->
+      <!-- Scripting card -->
       <div class="sk-card rv">
-        <div class="sk-title"><i class="fa-solid fa-language"></i> Languages</div>
+        <div class="sk-title"><i class="fa-solid fa-scripting"></i> Scripting</div>
         <div class="pills">
-          <span class="pill hot">Hindi</span><span class="pill hot">English</span>
+          <span class="pill hot">Python</span><span class="pill hot">Bash</span>
         </div>
       </div>
 
@@ -1103,10 +1104,10 @@ window.addEventListener('load', () => {
     document.getElementById('sideL').classList.add('show');
     document.getElementById('sideR').classList.add('show');
     // start counters
-    animateCount('cntYears', 17, '+');
+    animateCount('cntYears', 18, '+');
     animateCount('cntCo',    5);
     animateCount('cntSrv',   1500, '+');
-    animateCount('cntProj',  40, '+');
+    animateCount('cntProj',  5, '+');
   }, 1400);
 });
 
