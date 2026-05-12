@@ -534,13 +534,7 @@ section{padding:80px 0;max-width:980px;margin:0 auto;}
 
 /* PHOTO */
 .photo-box{position:relative;width:100%;}
-.photo-box::after{
-  content:'';position:absolute;
-  top:14px;left:14px;right:-14px;bottom:-14px;
-  border:2px solid var(--green);border-radius:6px;
-  z-index:-1;transition:var(--tr);
-}
-.photo-box:hover::after{top:8px;left:8px;}
+.photo-box::after{display:none;}
 .photo-inner2{
   width:100%;aspect-ratio:1;border-radius:6px;
   overflow:hidden;position:relative;
