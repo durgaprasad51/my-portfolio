@@ -1644,14 +1644,10 @@ function openResume() {
   if (!resumeLoaded) {
     const wrap = document.getElementById('pdfFrameWrap');
     const iframe = document.createElement('iframe');
-    /* For Google Drive links use /preview which disables the download button.
-       For local PDFs add #toolbar=0&navpanes=0 to hide Chrome's toolbar. */
-    const src = RESUME_URL.includes('drive.google.com')
-      ? RESUME_URL
-      : RESUME_URL + (RESUME_URL.includes('?') ? '&' : '#') + 'toolbar=0&navpanes=0&scrollbar=0';
-    iframe.src = src;
+    iframe.src = 'assets/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
     iframe.style.cssText = 'width:100%;height:100%;border:none;';
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+    iframe.setAttribute('oncontextmenu', 'return false');
     wrap.appendChild(iframe);
     resumeLoaded = true;
   }
