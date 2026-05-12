@@ -1098,10 +1098,10 @@ footer a:hover{color:var(--green);}
       <!-- PROFILE PHOTO — click box to upload from local system -->
       <div class="rvr">
         <div class="photo-box" id="photoBox">
-          <div class="photo-inner2" id="photoInner">
-            <img src="assets/photo.jpg" alt="Durga Prasad" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s;"/>
-          </div>
-          <div class="photo-tint2" id="phTint"></div>
+          <div class="photo-inner2" id="photoInner" onclick="document.getElementById('photoFile').click()" title="Click to upload your photo">
+            <div class="ph-empty" id="phEmpty">
+              <i class="fa-regular fa-circle-user"></i>
+              <span>Click to add photo</span>
             </div>
           </div>
           <div class="photo-tint2" id="phTint"></div>
@@ -1644,10 +1644,14 @@ function openResume() {
   if (!resumeLoaded) {
     const wrap = document.getElementById('pdfFrameWrap');
     const iframe = document.createElement('iframe');
-    iframe.src = 'assets/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+    /* For Google Drive links use /preview which disables the download button.
+       For local PDFs add #toolbar=0&navpanes=0 to hide Chrome's toolbar. */
+    const src = RESUME_URL.includes('drive.google.com')
+      ? RESUME_URL
+      : RESUME_URL + (RESUME_URL.includes('?') ? '&' : '#') + 'toolbar=0&navpanes=0&scrollbar=0';
+    iframe.src = src;
     iframe.style.cssText = 'width:100%;height:100%;border:none;';
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-    iframe.setAttribute('oncontextmenu', 'return false');
     wrap.appendChild(iframe);
     resumeLoaded = true;
   }
