@@ -139,30 +139,58 @@ header{
 }
 header.shadow{box-shadow:0 4px 30px rgba(0,0,0,0.5);}
 
-/* Logo with init animation */
+/* ── LOGO ───────────────────────────────────────────── */
 .logo{
-  font-family:var(--mono);font-size:1.1rem;
-  color:var(--green);font-weight:500;
-  letter-spacing:0.02em;
+  font-family:var(--mono);
   display:flex;align-items:center;gap:0;
+  line-height:1;letter-spacing:0;
+  text-decoration:none;
 }
-.logo-bracket{color:var(--green);opacity:0.8;}
-.logo-name{color:var(--white);}
-.logo-slash{color:var(--green);}
-.logo-init{
-  font-family:var(--mono);font-size:.62rem;
-  color:var(--slate);
-  margin-left:6px;
+/* < */
+.lg-ang{color:var(--green);font-size:1.25rem;font-weight:300;opacity:.7;}
+/* DurgaPrasad */
+.lg-name{
+  color:var(--white);font-size:1rem;font-weight:600;
+  letter-spacing:-.01em;
+}
+/* /> */
+.lg-close{color:var(--green);font-size:1.25rem;font-weight:300;opacity:.7;margin-right:10px;}
+/* $ _ slogan block */
+.lg-slogan{
+  display:flex;flex-direction:column;
+  justify-content:center;gap:0;
+  border-left:1px solid rgba(127,255,223,0.18);
+  padding-left:10px;
   opacity:0;
-  animation:initAppear 1s 1.6s forwards;
+  animation:lgIn .5s 1.6s ease forwards;
+}
+.lg-sl1{
+  font-family:var(--mono);font-size:.6rem;
+  color:var(--slate);letter-spacing:.04em;
+  line-height:1.3;
   white-space:nowrap;
 }
-.logo-cursor{
-  display:inline-block;width:2px;height:.85em;
-  background:var(--green);vertical-align:middle;margin-left:2px;
-  animation:blink .8s step-end infinite;
+.lg-sl2{
+  font-family:var(--mono);font-size:.58rem;
+  color:var(--green);letter-spacing:.06em;
+  line-height:1.3;opacity:.8;
+  white-space:nowrap;
 }
-@keyframes initAppear{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:none;}}
+/* blinking block cursor inside name */
+.lg-cur{
+  display:inline-block;width:8px;height:.85em;
+  background:var(--green);vertical-align:middle;
+  margin-left:2px;border-radius:1px;
+  animation:blink .9s step-end infinite;
+}
+/* pulsing online dot */
+.lg-dot{
+  display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--green);margin-right:4px;vertical-align:middle;
+  animation:dotPulse 1.6s ease-in-out infinite;
+}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+@keyframes lgIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:none;}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
 nav{display:flex;align-items:center;gap:6px;}
@@ -306,9 +334,27 @@ section{padding:80px 0;max-width:980px;margin:0 auto;}
 .hero-name{
   font-size:clamp(2.4rem,5vw,4rem);
   font-weight:800;color:var(--white);
-  line-height:1.05;margin-bottom:8px;
+  line-height:1.05;margin-bottom:10px;
   opacity:0;animation:hUp .5s .65s forwards;
   letter-spacing:-0.03em;
+}
+/* slogan row: >_ CODE. CREATE. SOLVE { } */
+.hero-slogan{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.88rem;
+  margin-bottom:18px;
+  opacity:0;animation:hUp .5s .75s forwards;
+  flex-wrap:wrap;
+}
+.hs-prompt{color:var(--green);font-weight:600;font-size:1rem;}
+.hs-text{
+  color:var(--white);font-weight:700;letter-spacing:.08em;
+  position:relative;
+}
+.hs-text::after{content:' ';}
+.hs-brace{
+  color:var(--green);font-weight:400;opacity:.7;
+  font-size:1rem;
 }
 .hero-role{
   font-size:clamp(1.2rem,2.5vw,2rem);
@@ -341,7 +387,7 @@ section{padding:80px 0;max-width:980px;margin:0 auto;}
 }
 
 /* ============================================================
-   HERO RIGHT — CODE WINDOW STACK
+   HERO RIGHT — LIVE TYPEWRITER CODE WINDOWS
    ============================================================ */
 .hero-right{
   display:flex;flex-direction:column;gap:14px;
@@ -349,90 +395,89 @@ section{padding:80px 0;max-width:980px;margin:0 auto;}
   position:relative;
 }
 .code-window{
-  background:rgba(13,24,40,0.92);
-  border:1px solid rgba(127,255,223,0.15);
+  background:rgba(8,16,30,0.96);
+  border:1px solid rgba(127,255,223,0.13);
   border-radius:10px;
   overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 40px rgba(127,255,223,0.04);
-  transition:var(--tr);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(127,255,223,0.04);
+  transition:border-color .3s,box-shadow .3s;
   position:relative;
 }
 .code-window:hover{
-  border-color:rgba(127,255,223,0.35);
-  transform:translateY(-3px);
-  box-shadow:0 28px 70px rgba(0,0,0,0.6),0 0 50px rgba(127,255,223,0.08);
+  border-color:rgba(127,255,223,0.3);
+  box-shadow:0 24px 70px rgba(0,0,0,0.6),0 0 40px rgba(127,255,223,0.07);
 }
-.code-window.main-win{flex:1;}
 .win-bar{
   display:flex;align-items:center;gap:7px;
-  padding:10px 14px;
-  background:rgba(0,0,0,0.3);
-  border-bottom:1px solid rgba(127,255,223,0.08);
+  padding:9px 14px;
+  background:rgba(0,0,0,0.35);
+  border-bottom:1px solid rgba(127,255,223,0.07);
 }
-.win-dot{width:12px;height:12px;border-radius:50%;}
+.win-dot{width:11px;height:11px;border-radius:50%;}
 .win-dot.red{background:#ff5f57;}
 .win-dot.yellow{background:#febc2e;}
 .win-dot.green{background:#28c840;}
-.win-title{
-  font-family:var(--mono);font-size:.65rem;
-  color:var(--slate);margin-left:8px;
-}
+.win-title{font-family:var(--mono);font-size:.63rem;color:#546e7a;margin-left:8px;flex:1;}
 .win-badge{
-  margin-left:auto;font-family:var(--mono);font-size:.58rem;
+  font-family:var(--mono);font-size:.56rem;
   padding:2px 8px;border-radius:100px;
-  background:rgba(127,255,223,0.1);color:var(--green);
-  border:1px solid rgba(127,255,223,0.2);
+  background:rgba(127,255,223,0.08);color:var(--green);
+  border:1px solid rgba(127,255,223,0.18);
 }
+/* Live terminal output area */
 .code-body{
-  padding:16px 18px;
-  font-family:var(--mono);font-size:.72rem;
-  line-height:1.8;
-  overflow-x:auto;
+  padding:14px 18px;
+  font-family:var(--mono);font-size:.71rem;
+  line-height:1.85;min-height:90px;
 }
-/* Syntax highlight tokens */
-.tk-k{color:#c792ea;} /* keyword */
-.tk-s{color:#f78c6c;} /* string */
-.tk-v{color:#7fffdf;} /* variable/value */
-.tk-c{color:#546e7a;font-style:italic;} /* comment */
-.tk-f{color:#82aaff;} /* function */
-.tk-n{color:#f07178;} /* name/resource */
-.tk-p{color:#b8cfe6;} /* punctuation */
-.tk-num{color:#f78c6c;} /* number */
-.code-line{display:flex;gap:12px;}
-.ln{color:#37475a;min-width:18px;text-align:right;user-select:none;}
-/* Typing animation on hero code */
-.code-type{
-  overflow:hidden;
-  white-space:nowrap;
-  border-right:2px solid var(--green);
-  animation:typeIn 3s steps(60,end) 1.5s forwards,
-             cursorHide .1s 4.5s forwards;
-  max-width:0;
+/* Each typed line */
+.tl{display:flex;gap:10px;opacity:0;transform:translateY(4px);transition:opacity .08s,transform .08s;}
+.tl.vis{opacity:1;transform:none;}
+.ln{color:#2a3a50;min-width:18px;text-align:right;flex-shrink:0;font-size:.65rem;padding-top:1px;}
+.tl-code{flex:1;}
+/* Active cursor line */
+.tl-cursor::after{
+  content:'▋';color:var(--green);
+  animation:blink .7s step-end infinite;
+  margin-left:1px;font-size:.75rem;
 }
-@keyframes typeIn{from{max-width:0;}to{max-width:100%;}}
-@keyframes cursorHide{to{border-right-color:transparent;}}
+/* Syntax tokens */
+.tk-k{color:#c792ea;}
+.tk-s{color:#f78c6c;}
+.tk-v{color:#7fffdf;}
+.tk-c{color:#37505e;font-style:italic;}
+.tk-f{color:#82aaff;}
+.tk-n{color:#f07178;}
+.tk-p{color:#b8cfe6;}
+.tk-num{color:#f78c6c;}
+.tk-ok{color:#28c840;font-weight:600;}
+/* Status line */
+.win-status{
+  padding:5px 18px 9px;
+  font-family:var(--mono);font-size:.6rem;
+  color:#37505e;border-top:1px solid rgba(127,255,223,0.05);
+  display:flex;align-items:center;gap:6px;
+  opacity:0;transition:opacity .4s;
+}
+.win-status.vis{opacity:1;}
+.win-status-dot{width:5px;height:5px;border-radius:50%;background:#28c840;animation:dotPulse 1.4s ease-in-out infinite;}
 
-/* K8s window smaller */
-.code-window.mini-win{font-size:.68rem;}
-
-/* Floating badges on hero right */
+/* Floating badges */
 .hero-badge{
   position:absolute;
   font-family:var(--mono);font-size:.6rem;
   padding:5px 12px;border-radius:100px;
-  background:rgba(13,24,40,0.95);
-  border:1px solid rgba(127,255,223,0.3);
+  background:rgba(8,16,30,0.96);
+  border:1px solid rgba(127,255,223,0.28);
   color:var(--green);
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 12px rgba(127,255,223,0.08);
   animation:floatBadge 3s ease-in-out infinite alternate;
   z-index:5;
+  white-space:nowrap;
 }
 .hero-badge.b1{top:-14px;right:40px;animation-delay:0s;}
-.hero-badge.b2{bottom:-10px;left:30px;animation-delay:1s;}
-@keyframes floatBadge{
-  from{transform:translateY(0);}
-  to{transform:translateY(-8px);}
-}
+.hero-badge.b2{bottom:-10px;left:30px;animation-delay:1.1s;}
+@keyframes floatBadge{from{transform:translateY(0);}to{transform:translateY(-9px);}}
 
 /* ============================================================
    BUTTON STYLES
@@ -524,13 +569,68 @@ section{padding:80px 0;max-width:980px;margin:0 auto;}
 .photo-box:hover .photo-tint2{opacity:0;}
 #photoFile{display:none;}
 
-/* About photo hint */
-.photo-hint{
-  font-family:var(--mono);font-size:.65rem;color:var(--slate);
-  margin-top:22px;text-align:center;
-  line-height:1.5;
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
 }
-.photo-hint span{color:var(--green);opacity:0.8;}
+.proj-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:26px 24px 22px;
+  transition:var(--tr);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:10px;
+}
+.proj-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(127,255,223,0.04) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.proj-card:hover{
+  border-color:rgba(127,255,223,.35);
+  transform:translateY(-5px);
+  box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 0 1px rgba(127,255,223,0.08);
+}
+.proj-card:hover::after{opacity:1;}
+.proj-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:4px;
+}
+.proj-icon{
+  font-size:1.5rem;color:var(--green);
+  transition:transform .3s;
+}
+.proj-card:hover .proj-icon{transform:translateY(-2px);}
+.proj-links{display:flex;gap:12px;}
+.proj-links a{
+  color:var(--slate);font-size:1rem;transition:var(--tr);
+}
+.proj-links a:hover{color:var(--green);transform:translateY(-2px);}
+.proj-title{
+  font-size:1rem;font-weight:700;
+  color:var(--white);letter-spacing:-.01em;
+  line-height:1.2;
+}
+.proj-desc{
+  font-size:.84rem;line-height:1.7;
+  color:var(--slate2);flex:1;
+}
+.proj-tags{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-top:6px;
+}
+.proj-tags span{
+  font-family:var(--mono);font-size:.65rem;
+  padding:3px 10px;border-radius:100px;
+  background:var(--bg2);border:1px solid var(--border);
+  color:var(--green);
+}
+@media(max-width:640px){.proj-grid{grid-template-columns:1fr;}}
 
 /* ============================================================
    EXPERIENCE TABS
@@ -637,25 +737,46 @@ section{padding:80px 0;max-width:980px;margin:0 auto;}
 .edu-d{font-size:.85rem;color:var(--slate2);line-height:1.55;}
 
 /* ============================================================
-   CONTACT
+   CONTACT — compact animated cards
    ============================================================ */
 .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
 .ct-over{font-family:var(--mono);font-size:.72rem;color:var(--green);margin-bottom:10px;letter-spacing:.1em;}
 .ct-h{font-size:1.9rem;font-weight:800;color:var(--white);margin-bottom:14px;letter-spacing:-0.02em;line-height:1.15;}
 .ct-h em{color:var(--green);font-style:normal;}
 .ct-p{font-size:.92rem;line-height:1.8;color:var(--slate2);margin-bottom:24px;}
-.ct-links{display:flex;flex-direction:column;gap:12px;}
+.ct-links{display:flex;flex-direction:column;gap:8px;}
+
+/* compact inline contact card */
 .ct-item{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 18px;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:9px 16px;
   background:var(--card);border:1px solid var(--border);
-  border-radius:6px;transition:var(--tr);
+  border-radius:6px;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  width:fit-content;min-width:0;
+  animation:ctPop .4s ease both;
 }
-.ct-item:hover{border-color:rgba(127,255,223,.35);transform:translateX(4px);}
-.ct-item i{color:var(--green);width:18px;text-align:center;font-size:.95rem;}
-.ct-lbl{font-family:var(--mono);font-size:.65rem;color:var(--slate2);letter-spacing:.1em;text-transform:uppercase;}
-.ct-val{font-size:.88rem;color:var(--slate2);}
-.ct-val a{color:var(--slate2);transition:var(--tr);}
+.ct-item:hover{
+  border-color:rgba(127,255,223,.5);
+  transform:translateX(6px) scale(1.03);
+  box-shadow:0 4px 20px rgba(127,255,223,0.1),0 0 0 1px rgba(127,255,223,0.12);
+}
+/* staggered entrance */
+.ct-item:nth-child(1){animation-delay:.05s;}
+.ct-item:nth-child(2){animation-delay:.12s;}
+.ct-item:nth-child(3){animation-delay:.19s;}
+.ct-item:nth-child(4){animation-delay:.26s;}
+.ct-item:nth-child(5){animation-delay:.33s;}
+.ct-item:nth-child(6){animation-delay:.4s;}
+@keyframes ctPop{
+  0%{opacity:0;transform:translateX(-10px) scale(.95);}
+  60%{transform:translateX(3px) scale(1.02);}
+  100%{opacity:1;transform:translateX(0) scale(1);}
+}
+.ct-item i{color:var(--green);width:15px;text-align:center;font-size:.9rem;flex-shrink:0;}
+.ct-lbl{font-family:var(--mono);font-size:.6rem;color:var(--slate);letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;}
+.ct-sep{color:var(--border);font-size:.7rem;flex-shrink:0;}
+.ct-val{font-size:.82rem;color:var(--slate2);white-space:nowrap;}
+.ct-val a{color:var(--slate2);transition:color .2s;}
 .ct-val a:hover{color:var(--green);}
 
 /* Social row */
@@ -835,6 +956,7 @@ footer a:hover{color:var(--green);}
   <a href="#about"      onclick="closeMob()">About</a>
   <a href="#experience" onclick="closeMob()">Experience</a>
   <a href="#skills"     onclick="closeMob()">Skills</a>
+  <a href="#projects"   onclick="closeMob()">Projects</a>
   <a href="#education"  onclick="closeMob()">Education</a>
   <a href="#contact"    onclick="closeMob()">Contact</a>
   <a href="#" onclick="openResume();closeMob();" class="btn btn-g" style="margin-top:8px;">Resume</a>
@@ -843,14 +965,17 @@ footer a:hover{color:var(--green);}
 <!-- ====================== HEADER ====================== -->
 <header id="hdr">
   <div class="logo">
-    <span class="logo-bracket">&lt;</span><span class="logo-name">DurgaPrasad</span><span class="logo-slash"> :: </span><span class="logo-name">init</span><span class="logo-bracket">()</span><span class="logo-slash"> /&gt;</span>
-    <span class="logo-init">▸ profile initializing...</span>
-    <span class="logo-cursor"></span>
+    <span class="lg-ang">&lt;</span><span class="lg-name">DurgaPrasad</span><span class="lg-cur"></span><span class="lg-close">/&gt;</span>
+    <div class="lg-slogan">
+      <span class="lg-sl1"><span class="lg-dot"></span>AWS &amp; DevOps Engineer</span>
+      <span class="lg-sl2">&gt;_ CODE. CREATE. SOLVE&nbsp;{&nbsp;}</span>
+    </div>
   </div>
   <nav>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
     <a href="#education">Education</a>
     <a href="#contact">Contact</a>
     <!-- ✏️ RESUME: Set your resume path below. See instructions at bottom of file. -->
@@ -868,7 +993,14 @@ footer a:hover{color:var(--green);}
     <div class="hero-left">
       <p class="hero-greet">$ whoami</p>
       <h1 class="hero-name">Durga Prasad.</h1>
-      <h2 class="hero-role">I build things for <span>the cloud</span>.<span class="cursor-blink"></span></h2>
+      <div class="hero-slogan">
+        <span class="hs-prompt">&gt;_</span>
+        <span class="hs-text">CODE.</span>
+        <span class="hs-text">CREATE.</span>
+        <span class="hs-text">SOLVE</span>
+        <span class="hs-brace">&nbsp;{&nbsp;&nbsp;}</span>
+      </div>
+      <h2 class="hero-role">I build things for <span>the cloud</span>.</h2>
       <p class="hero-desc">
         AWS &amp; DevOps Automation Engineer with 18+ years in IT — 5+ years deep in cloud-native architectures.
         I automate everything: infrastructure, pipelines, observability. From bare-metal to Kubernetes, I've shipped it all.
@@ -897,50 +1029,31 @@ footer a:hover{color:var(--green);}
       </div>
     </div>
 
-    <!-- RIGHT COLUMN — Code Windows -->
+    <!-- RIGHT COLUMN — Live Typewriter Code Windows -->
     <div class="hero-right">
-      <div class="hero-badge b1"><i class="fa-solid fa-circle" style="color:#28c840;font-size:.5rem;"></i> Infrastructure deploying...</div>
-      <div class="hero-badge b2"><i class="fa-brands fa-docker" style="margin-right:4px;"></i> k8s cluster healthy</div>
+      <div class="hero-badge b1"><i class="fa-solid fa-circle" style="color:#28c840;font-size:.5rem;"></i> terraform apply running...</div>
+      <div class="hero-badge b2"><i class="fa-brands fa-docker" style="margin-right:4px;"></i> 3/3 pods ready</div>
 
-      <!-- Terraform Code Window -->
-      <div class="code-window main-win">
+      <!-- Terraform Window — types live -->
+      <div class="code-window">
         <div class="win-bar">
           <div class="win-dot red"></div><div class="win-dot yellow"></div><div class="win-dot green"></div>
-          <span class="win-title">main.tf — EKS Cluster</span>
+          <span class="win-title">~/infra/eks/main.tf</span>
           <span class="win-badge">terraform</span>
         </div>
-        <div class="code-body">
-          <div class="code-line"><span class="ln">1</span><span><span class="tk-k">module</span> <span class="tk-p">"</span><span class="tk-n">eks</span><span class="tk-p">"</span> <span class="tk-p">{</span></span></div>
-          <div class="code-line"><span class="ln">2</span><span>&nbsp;&nbsp;<span class="tk-k">source</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <span class="tk-s">"terraform-aws-modules/eks/aws"</span></span></div>
-          <div class="code-line"><span class="ln">3</span><span>&nbsp;&nbsp;<span class="tk-k">cluster_name</span>&nbsp;&nbsp; = <span class="tk-s">"prod-cluster"</span></span></div>
-          <div class="code-line"><span class="ln">4</span><span>&nbsp;&nbsp;<span class="tk-k">cluster_version</span> = <span class="tk-s">"1.29"</span></span></div>
-          <div class="code-line"><span class="ln">5</span><span>&nbsp;&nbsp;<span class="tk-k">vpc_id</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <span class="tk-f">module</span><span class="tk-p">.</span><span class="tk-n">vpc</span><span class="tk-p">.</span><span class="tk-v">vpc_id</span></span></div>
-          <div class="code-line"><span class="ln">6</span><span>&nbsp;&nbsp;<span class="tk-k">subnet_ids</span>&nbsp;&nbsp;&nbsp;&nbsp; = <span class="tk-f">module</span><span class="tk-p">.</span><span class="tk-n">vpc</span><span class="tk-p">.</span><span class="tk-v">private_subnets</span></span></div>
-          <div class="code-line"><span class="ln">7</span><span>&nbsp;&nbsp;<span class="tk-k">enable_irsa</span>&nbsp;&nbsp;&nbsp; = <span class="tk-v">true</span></span></div>
-          <div class="code-line"><span class="ln">8</span><span>&nbsp;&nbsp;<span class="tk-k">node_groups</span> <span class="tk-p">{</span></span></div>
-          <div class="code-line"><span class="ln">9</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tk-k">desired_size</span> = <span class="tk-num">3</span></span></div>
-          <div class="code-line"><span class="ln">10</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tk-k">instance_type</span> = <span class="tk-s">"m5.xlarge"</span></span></div>
-          <div class="code-line"><span class="ln">11</span><span>&nbsp;&nbsp;<span class="tk-p">}</span></span></div>
-          <div class="code-line"><span class="ln">12</span><span><span class="tk-p">}</span></span></div>
-          <div class="code-line" style="margin-top:4px;"><span class="ln">13</span><span><span class="tk-c"># terraform apply -auto-approve ✓</span></span></div>
-        </div>
+        <div class="code-body" id="tfBody"></div>
+        <div class="win-status" id="tfStatus"><span class="win-status-dot"></span>Apply complete! 12 resources added.</div>
       </div>
 
-      <!-- Bash/K8s Window -->
-      <div class="code-window mini-win">
+      <!-- Bash/Deploy Window — types live -->
+      <div class="code-window">
         <div class="win-bar">
           <div class="win-dot red"></div><div class="win-dot yellow"></div><div class="win-dot green"></div>
-          <span class="win-title">deploy.sh — CI/CD Pipeline</span>
+          <span class="win-title">~/pipeline/deploy.sh</span>
           <span class="win-badge">bash</span>
         </div>
-        <div class="code-body">
-          <div class="code-line"><span class="ln">1</span><span><span class="tk-c">#!/bin/bash — GitHub Actions Deploy</span></span></div>
-          <div class="code-line"><span class="ln">2</span><span><span class="tk-f">kubectl</span> <span class="tk-k">apply</span> <span class="tk-v">-f</span> <span class="tk-s">k8s/manifests/</span></span></div>
-          <div class="code-line"><span class="ln">3</span><span><span class="tk-f">helm</span> <span class="tk-k">upgrade</span> <span class="tk-n">--install</span> api <span class="tk-s">./charts/api</span> <span class="tk-p">\</span></span></div>
-          <div class="code-line"><span class="ln">4</span><span>&nbsp;&nbsp;<span class="tk-v">--set</span> image.tag=<span class="tk-s">${GITHUB_SHA::7}</span></span></div>
-          <div class="code-line"><span class="ln">5</span><span><span class="tk-f">kubectl</span> <span class="tk-k">rollout status</span> deploy/api</span></div>
-          <div class="code-line"><span class="ln">6</span><span><span class="tk-c"># ✓ Deployment successful — 3/3 pods ready</span></span></div>
-        </div>
+        <div class="code-body" id="bashBody"></div>
+        <div class="win-status" id="bashStatus"><span class="win-status-dot"></span>Deployment successful · 3/3 replicas healthy</div>
       </div>
     </div>
   </section>
@@ -982,25 +1095,18 @@ footer a:hover{color:var(--green);}
         </ul>
       </div>
 
-      <!-- PROFILE PHOTO -->
-      <!-- ✏️ PHOTO: To link from your repo, change src in the img tag below.
-           e.g. src="assets/durga-photo.jpg" and place the image in your repo.
-           Or keep the upload button for local use. -->
+      <!-- PROFILE PHOTO — click box to upload from local system -->
       <div class="rvr">
         <div class="photo-box" id="photoBox">
           <div class="photo-inner2" id="photoInner" onclick="document.getElementById('photoFile').click()" title="Click to upload your photo">
             <div class="ph-empty" id="phEmpty">
               <i class="fa-regular fa-circle-user"></i>
-              <span>Upload photo</span>
+              <span>Click to add photo</span>
             </div>
           </div>
           <div class="photo-tint2" id="phTint"></div>
         </div>
         <input type="file" id="photoFile" accept="image/*" onchange="loadPhoto(event)"/>
-        <p class="photo-hint">
-          Click to upload · or set <span>src="assets/photo.jpg"</span> in code<br/>
-          Place image in repo at <span>assets/</span> folder
-        </p>
       </div>
     </div>
   </section>
@@ -1217,9 +1323,82 @@ footer a:hover{color:var(--green);}
 
   <div class="divider"></div>
 
+  <!-- ==================== PROJECTS ==================== -->
+  <section id="projects" style="position:relative;">
+    <div class="float-num">05</div>
+    <div class="sec-label rv">My Work</div>
+    <h2 class="sec-title rv">Featured <em>Projects</em></h2>
+    <div class="proj-grid">
+
+      <div class="proj-card rv">
+        <div class="proj-top">
+          <i class="fa-solid fa-folder-open proj-icon"></i>
+          <div class="proj-links">
+            <a href="https://github.com/durgaprasad51" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+        <div class="proj-title">EKS Multi-Env Provisioner</div>
+        <div class="proj-desc">Terraform modules to provision production-grade EKS clusters across dev, staging and prod environments. Includes VPC, IAM roles, node groups and Helm bootstrapping — zero manual steps from plan to apply.</div>
+        <div class="proj-tags">
+          <span>Terraform</span><span>EKS</span><span>AWS</span><span>Helm</span>
+        </div>
+      </div>
+
+      <div class="proj-card rv">
+        <div class="proj-top">
+          <i class="fa-solid fa-folder-open proj-icon"></i>
+          <div class="proj-links">
+            <a href="https://github.com/durgaprasad51" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+        <div class="proj-title">GitOps CI/CD Pipeline</div>
+        <div class="proj-desc">End-to-end CI/CD using GitHub Actions and ArgoCD. Docker image build → ECR push → Helm chart update → ArgoCD auto-sync to Kubernetes. Full GitOps workflow with drift detection and rollback capability.</div>
+        <div class="proj-tags">
+          <span>GitHub Actions</span><span>ArgoCD</span><span>Docker</span><span>Kubernetes</span>
+        </div>
+      </div>
+
+      <div class="proj-card rv">
+        <div class="proj-top">
+          <i class="fa-solid fa-folder-open proj-icon"></i>
+          <div class="proj-links">
+            <a href="https://github.com/durgaprasad51" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+        <div class="proj-title">Observability Stack</div>
+        <div class="proj-desc">Full-stack monitoring deployed via Ansible — Prometheus + Grafana + OpenTelemetry Collector. Pre-built dashboards for CPU, memory, pod health, request latency and custom business metrics.</div>
+        <div class="proj-tags">
+          <span>Prometheus</span><span>Grafana</span><span>Ansible</span><span>OpenTelemetry</span>
+        </div>
+      </div>
+
+      <div class="proj-card rv">
+        <div class="proj-top">
+          <i class="fa-solid fa-folder-open proj-icon"></i>
+          <div class="proj-links">
+            <a href="https://github.com/durgaprasad51" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+        <div class="proj-title">AWS Cost Optimisation Bot</div>
+        <div class="proj-desc">Python + Lambda function that runs nightly to detect idle EC2 instances, unused EBS volumes and unattached Elastic IPs. Sends a Slack report and auto-stops non-prod instances after hours — cutting cloud spend significantly.</div>
+        <div class="proj-tags">
+          <span>Python</span><span>Lambda</span><span>Bash</span><span>CloudWatch</span>
+        </div>
+      </div>
+
+      <!-- ➕ ADD YOUR OWN PROJECT: copy a .proj-card block above and update the content -->
+
+    </div>
+    <p style="font-family:var(--mono);font-size:.7rem;color:var(--slate);margin-top:28px;text-align:center;">
+      More projects on <a href="https://github.com/durgaprasad51" target="_blank" rel="noopener">GitHub →</a>
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ==================== CONTACT ==================== -->
   <section id="contact" style="position:relative;">
-    <div class="float-num">05</div>
+    <div class="float-num">06</div>
     <div class="ct-grid">
       <div class="ct-left rv">
         <p class="ct-over">// What's Next?</p>
@@ -1264,45 +1443,33 @@ footer a:hover{color:var(--green);}
         <div class="ct-links">
           <div class="ct-item">
             <i class="fa-solid fa-envelope"></i>
-            <div class="ct-item-body">
-              <div class="ct-lbl">Email</div>
-              <div class="ct-val"><a href="mailto:durga.p.chamoli@gmail.com">durga.p.chamoli@gmail.com</a></div>
-            </div>
+            <span class="ct-lbl">Email</span><span class="ct-sep">·</span>
+            <span class="ct-val"><a href="mailto:durga.p.chamoli@gmail.com">durga.p.chamoli@gmail.com</a></span>
           </div>
           <div class="ct-item">
             <i class="fa-solid fa-phone"></i>
-            <div class="ct-item-body">
-              <div class="ct-lbl">Phone</div>
-              <div class="ct-val"><a href="tel:+918860070698">+91 8860070698</a></div>
-            </div>
+            <span class="ct-lbl">Phone</span><span class="ct-sep">·</span>
+            <span class="ct-val"><a href="tel:+918860070698">+91 8860070698</a></span>
           </div>
           <div class="ct-item">
             <i class="fa-brands fa-whatsapp"></i>
-            <div class="ct-item-body">
-              <div class="ct-lbl">WhatsApp</div>
-              <div class="ct-val"><a href="https://wa.me/918860070698" target="_blank" rel="noopener">+91 8860070698</a></div>
-            </div>
+            <span class="ct-lbl">WhatsApp</span><span class="ct-sep">·</span>
+            <span class="ct-val"><a href="https://wa.me/918860070698" target="_blank" rel="noopener">+91 8860070698</a></span>
           </div>
           <div class="ct-item">
             <i class="fa-solid fa-location-dot"></i>
-            <div class="ct-item-body">
-              <div class="ct-lbl">Location</div>
-              <div class="ct-val">India</div>
-            </div>
+            <span class="ct-lbl">Location</span><span class="ct-sep">·</span>
+            <span class="ct-val">India</span>
           </div>
           <div class="ct-item">
             <i class="fa-brands fa-linkedin-in"></i>
-            <div class="ct-item-body">
-              <div class="ct-lbl">LinkedIn</div>
-              <div class="ct-val"><a href="https://www.linkedin.com/in/durgaprasad-awsdevops/" target="_blank" rel="noopener">durgaprasad-awsdevops</a></div>
-            </div>
+            <span class="ct-lbl">LinkedIn</span><span class="ct-sep">·</span>
+            <span class="ct-val"><a href="https://www.linkedin.com/in/durgaprasad-awsdevops/" target="_blank" rel="noopener">durgaprasad-awsdevops</a></span>
           </div>
           <div class="ct-item">
             <i class="fa-brands fa-github"></i>
-            <div class="ct-item-body">
-              <div class="ct-lbl">GitHub</div>
-              <div class="ct-val"><a href="https://github.com/durgaprasad51" target="_blank" rel="noopener">github.com/durgaprasad51</a></div>
-            </div>
+            <span class="ct-lbl">GitHub</span><span class="ct-sep">·</span>
+            <span class="ct-val"><a href="https://github.com/durgaprasad51" target="_blank" rel="noopener">durgaprasad51</a></span>
           </div>
         </div>
       </div>
@@ -1529,6 +1696,77 @@ setInterval(() => {
   p.style.color = 'var(--green)';
   setTimeout(() => { p.style.borderColor = ''; p.style.color = ''; }, 700);
 }, 1200);
+
+/* ─────────────────────────────────────────────────────
+   LIVE TYPEWRITER CODE WINDOWS
+   Each "line" is: { html, delay(ms after prev line appears) }
+   The engine appends lines one by one with a blinking cursor.
+───────────────────────────────────────────────────── */
+const TF_LINES = [
+  { h:`<span class="tk-c"># Provisioning EKS with Terraform</span>`, d:120 },
+  { h:`<span class="tk-k">module</span> <span class="tk-p">"</span><span class="tk-n">eks</span><span class="tk-p">"</span> <span class="tk-p">{</span>`, d:160 },
+  { h:`&nbsp;&nbsp;<span class="tk-k">source</span>         <span class="tk-p">=</span> <span class="tk-s">"terraform-aws-modules/eks/aws"</span>`, d:140 },
+  { h:`&nbsp;&nbsp;<span class="tk-k">cluster_name</span>   <span class="tk-p">=</span> <span class="tk-s">"prod-eks-cluster"</span>`, d:130 },
+  { h:`&nbsp;&nbsp;<span class="tk-k">cluster_version</span> <span class="tk-p">=</span> <span class="tk-s">"1.29"</span>`, d:120 },
+  { h:`&nbsp;&nbsp;<span class="tk-k">vpc_id</span>         <span class="tk-p">=</span> <span class="tk-f">module</span><span class="tk-p">.</span><span class="tk-n">vpc</span><span class="tk-p">.</span><span class="tk-v">vpc_id</span>`, d:130 },
+  { h:`&nbsp;&nbsp;<span class="tk-k">subnet_ids</span>     <span class="tk-p">=</span> <span class="tk-f">module</span><span class="tk-p">.</span><span class="tk-n">vpc</span><span class="tk-p">.</span><span class="tk-v">private_subnets</span>`, d:140 },
+  { h:`&nbsp;&nbsp;<span class="tk-k">enable_irsa</span>    <span class="tk-p">=</span> <span class="tk-v">true</span>`, d:110 },
+  { h:`<span class="tk-p">}</span>`, d:100 },
+  { h:`<span class="tk-ok">✓ Apply complete! 12 resources added.</span>`, d:300 },
+];
+const BASH_LINES = [
+  { h:`<span class="tk-c">#!/bin/bash  —  GitHub Actions deploy</span>`, d:120 },
+  { h:`<span class="tk-f">docker</span> build <span class="tk-v">-t</span> api:<span class="tk-s">$GITHUB_SHA</span> .`, d:150 },
+  { h:`<span class="tk-f">docker</span> push <span class="tk-s">$ECR_REPO</span>/api:<span class="tk-s">$GITHUB_SHA</span>`, d:140 },
+  { h:`<span class="tk-f">helm</span> upgrade <span class="tk-n">--install</span> api ./charts/api <span class="tk-p">\\</span>`, d:130 },
+  { h:`&nbsp;&nbsp;<span class="tk-v">--set</span> image.tag=<span class="tk-s">$GITHUB_SHA</span>`, d:120 },
+  { h:`<span class="tk-f">kubectl</span> rollout status deploy/api`, d:140 },
+  { h:`<span class="tk-ok">✓ Deployment successful — 3/3 replicas ready</span>`, d:300 },
+];
+
+function runTypewriter(containerId, statusId, lines, startDelay) {
+  const body   = document.getElementById(containerId);
+  const status = document.getElementById(statusId);
+  if (!body) return;
+
+  let t = startDelay;
+  lines.forEach((line, i) => {
+    t += line.d;
+    setTimeout(() => {
+      // remove cursor class from previous line
+      const prev = body.querySelector('.tl-cursor');
+      if (prev) prev.classList.remove('tl-cursor');
+
+      const row = document.createElement('div');
+      row.className = 'tl tl-cursor';
+      row.innerHTML =
+        `<span class="ln">${i+1}</span><span class="tl-code">${line.h}</span>`;
+      body.appendChild(row);
+      // trigger visibility (tiny delay for transition)
+      requestAnimationFrame(() => requestAnimationFrame(() => row.classList.add('vis')));
+
+      // on last line: remove cursor, show status bar
+      if (i === lines.length - 1) {
+        setTimeout(() => {
+          row.classList.remove('tl-cursor');
+          if (status) status.classList.add('vis');
+          // loop: after pause, clear and restart
+          setTimeout(() => {
+            body.innerHTML = '';
+            if (status) status.classList.remove('vis');
+            runTypewriter(containerId, statusId, lines, 200);
+          }, 4000);
+        }, 800);
+      }
+    }, t);
+  });
+}
+
+// start both windows after page load (stagger so they don't feel synced)
+window.addEventListener('load', () => {
+  setTimeout(() => { runTypewriter('tfBody',   'tfStatus',   TF_LINES,   400); }, 1800);
+  setTimeout(() => { runTypewriter('bashBody', 'bashStatus', BASH_LINES, 400); }, 3200);
+});
 </script>
 
 </body>
