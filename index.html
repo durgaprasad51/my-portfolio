@@ -1365,70 +1365,68 @@ footer a:hover{color:var(--green);}
   <!-- ==================== CONTACT ==================== -->
   <section id="contact" style="position:relative;">
   <div class="float-num">06</div>
-  <div class="ct-grid">
 
-    <!-- LEFT -->
-    <div class="ct-left rv">
-      <h2 class="ct-h">Let's <em>Work</em><br/>Together</h2>
-      <p class="ct-p">
-        I'm open to new opportunities — whether a full-time AWS/DevOps role or a freelance
-        cloud infrastructure project. Drop me a line and I'll get back to you promptly.
-      </p>
+  <!-- ROW 1: Title full width -->
+  <div class="ct-title-row rv">
+    <h2 class="ct-h">Let's <em>Work</em> Together</h2>
+  </div>
 
-      <!-- ANIMATED CONTACT CARDS -->
-      <div class="ct-cards">
+  <!-- ROW 2: Description full width -->
+  <div class="ct-desc-row rv">
+    <p class="ct-p">
+      I'm open to new opportunities — whether a full-time AWS/DevOps role or a freelance
+      cloud infrastructure project. Drop me a line and I'll get back to you promptly.
+    </p>
+  </div>
 
-        <a class="ct-card" href="#" data-type="email" onclick="handleContact(event,'email')">
-          <span class="ct-card-icon"><i class="fa-solid fa-envelope"></i></span>
-          <span class="ct-card-label">Email Me</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
+  <!-- ROW 3: Terminal LEFT + Cards RIGHT (aligned together) -->
+  <div class="ct-bottom-row">
 
-        <a class="ct-card" href="#" data-type="phone" onclick="handleContact(event,'phone')">
-          <span class="ct-card-icon"><i class="fa-solid fa-phone"></i></span>
-          <span class="ct-card-label">Call Me</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-
-        <a class="ct-card" href="#" data-type="whatsapp" onclick="handleContact(event,'whatsapp')">
-          <span class="ct-card-icon"><i class="fa-brands fa-whatsapp"></i></span>
-          <span class="ct-card-label">WhatsApp</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-
-        <a class="ct-card" href="#" data-type="linkedin" onclick="handleContact(event,'linkedin')">
-          <span class="ct-card-icon"><i class="fa-brands fa-linkedin-in"></i></span>
-          <span class="ct-card-label">LinkedIn</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-
-        <a class="ct-card" href="#" data-type="github" onclick="handleContact(event,'github')">
-          <span class="ct-card-icon"><i class="fa-brands fa-github"></i></span>
-          <span class="ct-card-label">GitHub</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-
+    <!-- Terminal -->
+    <div class="ct-terminal">
+      <div class="ct-terminal-bar">
+        <span class="ct-dot red"></span>
+        <span class="ct-dot yellow"></span>
+        <span class="ct-dot green"></span>
+        <span class="ct-terminal-title">contact.sh</span>
+      </div>
+      <div class="ct-terminal-body">
+        <div class="ct-tline"><span class="ct-prompt">$</span> <span class="ct-cmd typing">./reach_out.sh</span></div>
+        <div class="ct-tline flash-line"><span class="ct-key">STATUS</span><span class="ct-colon"> :: </span><span class="ct-tval available">AVAILABLE FOR HIRE</span></div>
+        <div class="ct-tline flash-line delay-1"><span class="ct-key">ROLE</span><span class="ct-colon"> :: </span><span class="ct-tval">AWS / DevOps Engineer</span></div>
+        <div class="ct-tline flash-line delay-2"><span class="ct-key">MODE</span><span class="ct-colon"> :: </span><span class="ct-tval">Full-time · Freelance</span></div>
+        <div class="ct-tline flash-line delay-3"><span class="ct-key">RESPONSE</span><span class="ct-colon"> :: </span><span class="ct-tval">&lt; 24 hrs</span></div>
+        <div class="ct-tline ct-cursor-line"><span class="ct-prompt">$</span> <span class="ct-blink">▋</span></div>
       </div>
     </div>
 
-    <!-- RIGHT: animated terminal flicker -->
-    <div class="rvr">
-      <div class="ct-terminal">
-        <div class="ct-terminal-bar">
-          <span class="ct-dot red"></span>
-          <span class="ct-dot yellow"></span>
-          <span class="ct-dot green"></span>
-          <span class="ct-terminal-title">contact.sh</span>
-        </div>
-        <div class="ct-terminal-body">
-          <div class="ct-tline"><span class="ct-prompt">$</span> <span class="ct-cmd typing">./reach_out.sh</span></div>
-          <div class="ct-tline flash-line"><span class="ct-key">STATUS</span><span class="ct-colon"> :: </span><span class="ct-tval available">AVAILABLE FOR HIRE</span></div>
-          <div class="ct-tline flash-line delay-1"><span class="ct-key">ROLE  </span><span class="ct-colon"> :: </span><span class="ct-tval">AWS / DevOps Engineer</span></div>
-          <div class="ct-tline flash-line delay-2"><span class="ct-key">MODE  </span><span class="ct-colon"> :: </span><span class="ct-tval">Full-time · Freelance</span></div>
-          <div class="ct-tline flash-line delay-3"><span class="ct-key">RESPONSE</span><span class="ct-colon"> :: </span><span class="ct-tval">&lt; 24 hrs</span></div>
-          <div class="ct-tline ct-cursor-line"><span class="ct-prompt">$</span> <span class="ct-blink">▋</span></div>
-        </div>
-      </div>
+    <!-- Cards -->
+    <div class="ct-cards">
+      <a class="ct-card" href="#" onclick="handleContact(event,'email')">
+        <span class="ct-card-icon"><i class="fa-solid fa-envelope"></i></span>
+        <span class="ct-card-label">Email Me</span>
+        <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="ct-card" href="#" onclick="handleContact(event,'phone')">
+        <span class="ct-card-icon"><i class="fa-solid fa-phone"></i></span>
+        <span class="ct-card-label">Call Me</span>
+        <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="ct-card" href="#" onclick="handleContact(event,'whatsapp')">
+        <span class="ct-card-icon"><i class="fa-brands fa-whatsapp"></i></span>
+        <span class="ct-card-label">WhatsApp</span>
+        <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="ct-card" href="#" onclick="handleContact(event,'linkedin')">
+        <span class="ct-card-icon"><i class="fa-brands fa-linkedin-in"></i></span>
+        <span class="ct-card-label">LinkedIn</span>
+        <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="ct-card" href="#" onclick="handleContact(event,'github')">
+        <span class="ct-card-icon"><i class="fa-brands fa-github"></i></span>
+        <span class="ct-card-label">GitHub</span>
+        <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
     </div>
 
   </div>
@@ -1437,88 +1435,46 @@ footer a:hover{color:var(--green);}
 
 <!-- ── CONTACT SECTION CSS ── -->
 <style>
-/* Cards row */
-.ct-cards {
+
+/* Title row — full width single line */
+.ct-title-row {
+  margin-bottom: 12px;
+}
+.ct-h {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Description row — full width */
+.ct-desc-row {
+  margin-bottom: 32px;
+}
+.ct-p {
+  max-width: 600px;
+  line-height: 1.7;
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* Bottom row: terminal + cards side by side */
+.ct-bottom-row {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 28px;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
-.ct-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px 18px;
-  border: 1px solid rgba(0,255,140,0.18);
-  border-radius: 8px;
-  background: rgba(0,255,140,0.03);
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s, background 0.3s, transform 0.2s;
-  animation: cardFlicker 4s infinite;
-}
-
-.ct-card:nth-child(2) { animation-delay: 0.4s; }
-.ct-card:nth-child(3) { animation-delay: 0.8s; }
-.ct-card:nth-child(4) { animation-delay: 1.2s; }
-.ct-card:nth-child(5) { animation-delay: 1.6s; }
-
-@keyframes cardFlicker {
-  0%,95%,100% { border-color: rgba(0,255,140,0.18); background: rgba(0,255,140,0.03); }
-  96%          { border-color: rgba(0,255,140,0.6);  background: rgba(0,255,140,0.08); }
-}
-
-.ct-card:hover {
-  border-color: rgba(0,255,140,0.7);
-  background: rgba(0,255,140,0.08);
-  transform: translateX(6px);
-}
-
-.ct-card::before {
-  content: '';
-  position: absolute;
-  left: -100%;
-  top: 0; bottom: 0;
-  width: 60%;
-  background: linear-gradient(90deg, transparent, rgba(0,255,140,0.08), transparent);
-  transition: left 0.4s;
-}
-.ct-card:hover::before { left: 150%; }
-
-.ct-card-icon {
-  font-size: 1.1rem;
-  color: #00ff8c;
-  width: 22px;
-  text-align: center;
-}
-.ct-card-label {
-  flex: 1;
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-}
-.ct-card-arrow {
-  font-size: 0.8rem;
-  color: #00ff8c;
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 0.3s, transform 0.3s;
-}
-.ct-card:hover .ct-card-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Terminal panel */
+/* Terminal — natural width, fits content */
 .ct-terminal {
   border: 1px solid rgba(0,255,140,0.25);
   border-radius: 10px;
   overflow: hidden;
   font-family: 'Courier New', monospace;
   background: rgba(0,0,0,0.45);
+  flex-shrink: 0;
+  min-width: 280px;
 }
 .ct-terminal-bar {
   display: flex;
@@ -1529,7 +1485,7 @@ footer a:hover{color:var(--green);}
   border-bottom: 1px solid rgba(0,255,140,0.15);
 }
 .ct-dot {
-  width: 11px; height: 11px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -1538,34 +1494,107 @@ footer a:hover{color:var(--green);}
 .ct-dot.green  { background: #28c840; }
 .ct-terminal-title {
   margin-left: 8px;
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.45);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
   letter-spacing: 0.06em;
 }
 .ct-terminal-body {
-  padding: 18px 20px;
+  padding: 14px 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .ct-tline {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   display: flex;
   align-items: center;
   gap: 4px;
+  white-space: nowrap;
 }
-.ct-prompt { color: #00ff8c; margin-right: 6px; }
-.ct-cmd { color: #e2e2e2; }
-.ct-key  { color: rgba(0,255,140,0.7); min-width: 72px; letter-spacing:0.05em; }
-.ct-colon{ color: rgba(255,255,255,0.3); }
-.ct-tval { color: #e2e2e2; }
+.ct-prompt  { color: #00ff8c; margin-right: 6px; }
+.ct-cmd     { color: #e2e2e2; }
+.ct-key     { color: rgba(0,255,140,0.75); min-width: 68px; letter-spacing: 0.04em; }
+.ct-colon   { color: rgba(255,255,255,0.3); }
+.ct-tval    { color: #e2e2e2; }
 .ct-tval.available {
   color: #00ff8c;
   font-weight: 700;
   animation: pulse-green 2s infinite;
 }
 
-/* Flashing lines */
+/* Cards — fit content, aligned to terminal top */
+.ct-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: flex-start;
+}
+
+.ct-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid rgba(0,255,140,0.18);
+  border-radius: 7px;
+  background: rgba(0,255,140,0.03);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: border-color 0.3s, background 0.3s, transform 0.2s;
+  animation: cardFlicker 4s infinite;
+}
+.ct-card:nth-child(2) { animation-delay: 0.4s; }
+.ct-card:nth-child(3) { animation-delay: 0.8s; }
+.ct-card:nth-child(4) { animation-delay: 1.2s; }
+.ct-card:nth-child(5) { animation-delay: 1.6s; }
+
+@keyframes cardFlicker {
+  0%,95%,100% { border-color: rgba(0,255,140,0.18); background: rgba(0,255,140,0.03); }
+  96%          { border-color: rgba(0,255,140,0.6);  background: rgba(0,255,140,0.08); }
+}
+.ct-card:hover {
+  border-color: rgba(0,255,140,0.7);
+  background: rgba(0,255,140,0.08);
+  transform: translateX(5px);
+}
+.ct-card::before {
+  content: '';
+  position: absolute;
+  left: -100%; top: 0; bottom: 0;
+  width: 60%;
+  background: linear-gradient(90deg, transparent, rgba(0,255,140,0.08), transparent);
+  transition: left 0.4s;
+}
+.ct-card:hover::before { left: 150%; }
+
+.ct-card-icon {
+  font-size: 0.95rem;
+  color: #00ff8c;
+  width: 18px;
+  text-align: center;
+}
+.ct-card-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.ct-card-arrow {
+  font-size: 0.72rem;
+  color: #00ff8c;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.3s, transform 0.3s;
+  margin-left: 6px;
+}
+.ct-card:hover .ct-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Flash animations */
 .flash-line {
   opacity: 0;
   animation: flashIn 0.6s forwards;
@@ -1580,7 +1609,6 @@ footer a:hover{color:var(--green);}
   100% { opacity: 1; transform: translateX(0); }
 }
 
-/* Typing cursor */
 .ct-blink {
   color: #00ff8c;
   animation: blink 1s step-end infinite;
@@ -1590,7 +1618,6 @@ footer a:hover{color:var(--green);}
   50%      { opacity: 0; }
 }
 
-/* Typing effect on command */
 .typing {
   overflow: hidden;
   white-space: nowrap;
@@ -1598,16 +1625,19 @@ footer a:hover{color:var(--green);}
   width: 0;
   animation: typeCmd 1.2s steps(18) forwards, removeCursor 0s 1.3s forwards;
 }
-@keyframes typeCmd {
-  to { width: 16ch; }
-}
-@keyframes removeCursor {
-  to { border-color: transparent; }
-}
+@keyframes typeCmd   { to { width: 16ch; } }
+@keyframes removeCursor { to { border-color: transparent; } }
 
 @keyframes pulse-green {
   0%,100% { text-shadow: 0 0 4px rgba(0,255,140,0.4); }
   50%      { text-shadow: 0 0 12px rgba(0,255,140,0.9); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ct-h { white-space: normal; }
+  .ct-bottom-row { flex-direction: column; }
+  .ct-terminal, .ct-cards { width: 100%; }
 }
 </style>
 
@@ -1615,7 +1645,6 @@ footer a:hover{color:var(--green);}
 <!-- ── CONTACT SECTION JS ── -->
 <script>
 (function () {
-  /* Obfuscated contact map — nothing sensitive rendered in HTML */
   const _c = {
     email:    atob('bWFpbHRvOmR1cmdhLnAuY2hhbW9saUBnbWFpbC5jb20='),
     phone:    atob('dGVsOis5MTg4NjAwNzA2OTg='),
@@ -1623,7 +1652,6 @@ footer a:hover{color:var(--green);}
     linkedin: atob('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2R1cmdhcHJhc2FkLWF3c2Rldm9wcy8='),
     github:   atob('aHR0cHM6Ly9naXRodWIuY29tL2R1cmdhcHJhc2FkNTE='),
   };
-
   window.handleContact = function (e, type) {
     e.preventDefault();
     const url = _c[type];
