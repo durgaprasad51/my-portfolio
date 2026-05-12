@@ -1364,84 +1364,278 @@ footer a:hover{color:var(--green);}
 
   <!-- ==================== CONTACT ==================== -->
   <section id="contact" style="position:relative;">
-    <div class="float-num">06</div>
-    <div class="ct-grid">
-      <div class="ct-left rv">
-        <h2 class="ct-h">Let's <em>Work</em><br/>Together</h2>
-        <p class="ct-p">
-          I'm open to new opportunities — whether a full-time AWS/DevOps role or a freelance
-          cloud infrastructure project. Drop me a line and I'll get back to you promptly.
-        </p>
+  <div class="float-num">06</div>
+  <div class="ct-grid">
 
-        <!-- CONNECT BUTTON WITH DROPDOWN -->
-        <div class="connect-wrap" id="connectWrap">
-          <button class="btn btn-g" onclick="toggleConnect(event)">
-            <i class="fa-solid fa-link"></i> Let's Connect
-          </button>
-          <div class="connect-dropdown" id="connectDropdown">
-            <a class="connect-opt" href="mailto:durga.p.chamoli@gmail.com">
-              <i class="fa-solid fa-envelope"></i> Email Me
-            </a>
-            <div class="connect-sep"></div>
-            <a class="connect-opt" href="https://wa.me/918860070698" target="_blank" rel="noopener">
-              <i class="fa-brands fa-whatsapp"></i> WhatsApp
-            </a>
-            <div class="connect-sep"></div>
-            <a class="connect-opt" href="tel:+918860070698">
-              <i class="fa-solid fa-phone"></i> Call +91 8860070698
-            </a>
-            <div class="connect-sep"></div>
-            <a class="connect-opt" href="https://www.linkedin.com/in/durgaprasad-awsdevops/" target="_blank" rel="noopener">
-              <i class="fa-brands fa-linkedin-in"></i> LinkedIn
-            </a>
-          </div>
-        </div>
+    <!-- LEFT -->
+    <div class="ct-left rv">
+      <h2 class="ct-h">Let's <em>Work</em><br/>Together</h2>
+      <p class="ct-p">
+        I'm open to new opportunities — whether a full-time AWS/DevOps role or a freelance
+        cloud infrastructure project. Drop me a line and I'll get back to you promptly.
+      </p>
 
-        <div class="socials" style="margin-top:20px;">
-          <a href="https://github.com/durgaprasad51" target="_blank" rel="noopener" class="soc-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-          <a href="https://www.linkedin.com/in/durgaprasad-awsdevops/" target="_blank" rel="noopener" class="soc-btn"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
-          <a href="https://wa.me/918860070698" target="_blank" rel="noopener" class="soc-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-        </div>
+      <!-- ANIMATED CONTACT CARDS -->
+      <div class="ct-cards">
+
+        <a class="ct-card" href="#" data-type="email" onclick="handleContact(event,'email')">
+          <span class="ct-card-icon"><i class="fa-solid fa-envelope"></i></span>
+          <span class="ct-card-label">Email Me</span>
+          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="ct-card" href="#" data-type="phone" onclick="handleContact(event,'phone')">
+          <span class="ct-card-icon"><i class="fa-solid fa-phone"></i></span>
+          <span class="ct-card-label">Call Me</span>
+          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="ct-card" href="#" data-type="whatsapp" onclick="handleContact(event,'whatsapp')">
+          <span class="ct-card-icon"><i class="fa-brands fa-whatsapp"></i></span>
+          <span class="ct-card-label">WhatsApp</span>
+          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="ct-card" href="#" data-type="linkedin" onclick="handleContact(event,'linkedin')">
+          <span class="ct-card-icon"><i class="fa-brands fa-linkedin-in"></i></span>
+          <span class="ct-card-label">LinkedIn</span>
+          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="ct-card" href="#" data-type="github" onclick="handleContact(event,'github')">
+          <span class="ct-card-icon"><i class="fa-brands fa-github"></i></span>
+          <span class="ct-card-label">GitHub</span>
+          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
       </div>
+    </div>
 
-      <div class="rvr">
-        <div class="ct-links">
-          <div class="ct-item">
-            <i class="fa-solid fa-envelope"></i>
-            <span class="ct-lbl">Email</span><span class="ct-sep">·</span>
-            <span class="ct-val"><a href="mailto:durga.p.chamoli@gmail.com">durga.p.chamoli@gmail.com</a></span>
-          </div>
-          <div class="ct-item">
-            <i class="fa-solid fa-phone"></i>
-            <span class="ct-lbl">Phone</span><span class="ct-sep">·</span>
-            <span class="ct-val"><a href="tel:+918860070698">+91 8860070698</a></span>
-          </div>
-          <div class="ct-item">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span class="ct-lbl">WhatsApp</span><span class="ct-sep">·</span>
-            <span class="ct-val"><a href="https://wa.me/918860070698" target="_blank" rel="noopener">+91 8860070698</a></span>
-          </div>
-          <div class="ct-item">
-            <i class="fa-solid fa-location-dot"></i>
-            <span class="ct-lbl">Location</span><span class="ct-sep">·</span>
-            <span class="ct-val">India</span>
-          </div>
-          <div class="ct-item">
-            <i class="fa-brands fa-linkedin-in"></i>
-            <span class="ct-lbl">LinkedIn</span><span class="ct-sep">·</span>
-            <span class="ct-val"><a href="https://www.linkedin.com/in/durgaprasad-awsdevops/" target="_blank" rel="noopener">durgaprasad-awsdevops</a></span>
-          </div>
-          <div class="ct-item">
-            <i class="fa-brands fa-github"></i>
-            <span class="ct-lbl">GitHub</span><span class="ct-sep">·</span>
-            <span class="ct-val"><a href="https://github.com/durgaprasad51" target="_blank" rel="noopener">durgaprasad51</a></span>
-          </div>
+    <!-- RIGHT: animated terminal flicker -->
+    <div class="rvr">
+      <div class="ct-terminal">
+        <div class="ct-terminal-bar">
+          <span class="ct-dot red"></span>
+          <span class="ct-dot yellow"></span>
+          <span class="ct-dot green"></span>
+          <span class="ct-terminal-title">contact.sh</span>
+        </div>
+        <div class="ct-terminal-body">
+          <div class="ct-tline"><span class="ct-prompt">$</span> <span class="ct-cmd typing">./reach_out.sh</span></div>
+          <div class="ct-tline flash-line"><span class="ct-key">STATUS</span><span class="ct-colon"> :: </span><span class="ct-tval available">AVAILABLE FOR HIRE</span></div>
+          <div class="ct-tline flash-line delay-1"><span class="ct-key">ROLE  </span><span class="ct-colon"> :: </span><span class="ct-tval">AWS / DevOps Engineer</span></div>
+          <div class="ct-tline flash-line delay-2"><span class="ct-key">MODE  </span><span class="ct-colon"> :: </span><span class="ct-tval">Full-time · Freelance</span></div>
+          <div class="ct-tline flash-line delay-3"><span class="ct-key">RESPONSE</span><span class="ct-colon"> :: </span><span class="ct-tval">&lt; 24 hrs</span></div>
+          <div class="ct-tline ct-cursor-line"><span class="ct-prompt">$</span> <span class="ct-blink">▋</span></div>
         </div>
       </div>
     </div>
-  </section>
 
-</main>
+  </div>
+</section>
+
+
+<!-- ── CONTACT SECTION CSS ── -->
+<style>
+/* Cards row */
+.ct-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.ct-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 18px;
+  border: 1px solid rgba(0,255,140,0.18);
+  border-radius: 8px;
+  background: rgba(0,255,140,0.03);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, background 0.3s, transform 0.2s;
+  animation: cardFlicker 4s infinite;
+}
+
+.ct-card:nth-child(2) { animation-delay: 0.4s; }
+.ct-card:nth-child(3) { animation-delay: 0.8s; }
+.ct-card:nth-child(4) { animation-delay: 1.2s; }
+.ct-card:nth-child(5) { animation-delay: 1.6s; }
+
+@keyframes cardFlicker {
+  0%,95%,100% { border-color: rgba(0,255,140,0.18); background: rgba(0,255,140,0.03); }
+  96%          { border-color: rgba(0,255,140,0.6);  background: rgba(0,255,140,0.08); }
+}
+
+.ct-card:hover {
+  border-color: rgba(0,255,140,0.7);
+  background: rgba(0,255,140,0.08);
+  transform: translateX(6px);
+}
+
+.ct-card::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0; bottom: 0;
+  width: 60%;
+  background: linear-gradient(90deg, transparent, rgba(0,255,140,0.08), transparent);
+  transition: left 0.4s;
+}
+.ct-card:hover::before { left: 150%; }
+
+.ct-card-icon {
+  font-size: 1.1rem;
+  color: #00ff8c;
+  width: 22px;
+  text-align: center;
+}
+.ct-card-label {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.ct-card-arrow {
+  font-size: 0.8rem;
+  color: #00ff8c;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.ct-card:hover .ct-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Terminal panel */
+.ct-terminal {
+  border: 1px solid rgba(0,255,140,0.25);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+  background: rgba(0,0,0,0.45);
+}
+.ct-terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(0,255,140,0.07);
+  border-bottom: 1px solid rgba(0,255,140,0.15);
+}
+.ct-dot {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.ct-dot.red    { background: #ff5f57; }
+.ct-dot.yellow { background: #ffbd2e; }
+.ct-dot.green  { background: #28c840; }
+.ct-terminal-title {
+  margin-left: 8px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.06em;
+}
+.ct-terminal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ct-tline {
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ct-prompt { color: #00ff8c; margin-right: 6px; }
+.ct-cmd { color: #e2e2e2; }
+.ct-key  { color: rgba(0,255,140,0.7); min-width: 72px; letter-spacing:0.05em; }
+.ct-colon{ color: rgba(255,255,255,0.3); }
+.ct-tval { color: #e2e2e2; }
+.ct-tval.available {
+  color: #00ff8c;
+  font-weight: 700;
+  animation: pulse-green 2s infinite;
+}
+
+/* Flashing lines */
+.flash-line {
+  opacity: 0;
+  animation: flashIn 0.6s forwards;
+}
+.flash-line.delay-1 { animation-delay: 0.5s; }
+.flash-line.delay-2 { animation-delay: 1.0s; }
+.flash-line.delay-3 { animation-delay: 1.5s; }
+
+@keyframes flashIn {
+  0%   { opacity: 0; transform: translateX(-8px); }
+  40%  { opacity: 1; transform: translateX(2px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Typing cursor */
+.ct-blink {
+  color: #00ff8c;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* Typing effect on command */
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #00ff8c;
+  width: 0;
+  animation: typeCmd 1.2s steps(18) forwards, removeCursor 0s 1.3s forwards;
+}
+@keyframes typeCmd {
+  to { width: 16ch; }
+}
+@keyframes removeCursor {
+  to { border-color: transparent; }
+}
+
+@keyframes pulse-green {
+  0%,100% { text-shadow: 0 0 4px rgba(0,255,140,0.4); }
+  50%      { text-shadow: 0 0 12px rgba(0,255,140,0.9); }
+}
+</style>
+
+
+<!-- ── CONTACT SECTION JS ── -->
+<script>
+(function () {
+  /* Obfuscated contact map — nothing sensitive rendered in HTML */
+  const _c = {
+    email:    atob('bWFpbHRvOmR1cmdhLnAuY2hhbW9saUBnbWFpbC5jb20='),
+    phone:    atob('dGVsOis5MTg4NjAwNzA2OTg='),
+    whatsapp: atob('aHR0cHM6Ly93YS5tZS85MTg4NjAwNzA2OTg='),
+    linkedin: atob('aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2R1cmdhcHJhc2FkLWF3c2Rldm9wcy8='),
+    github:   atob('aHR0cHM6Ly9naXRodWIuY29tL2R1cmdhcHJhc2FkNTE='),
+  };
+
+  window.handleContact = function (e, type) {
+    e.preventDefault();
+    const url = _c[type];
+    if (!url) return;
+    if (type === 'email' || type === 'phone') {
+      window.location.href = url;
+    } else {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+})();
+</script>
 
 <!-- ====================== FOOTER ====================== -->
 <footer>
