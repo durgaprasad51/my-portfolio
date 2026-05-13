@@ -255,11 +255,11 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 
 .hero-name {
   font-family: var(--sans);
-  font-size: 1.85rem;
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
   font-weight: 700; color: var(--white);
-  line-height: 1.2; margin-bottom: 14px;
+  line-height: 1.1; margin-bottom: 14px;
   opacity: 0; animation: hUp .5s .55s forwards;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .hero-role {
@@ -337,10 +337,11 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
   border: 1px solid rgba(0,229,160,0.15);
 }
 .code-body {
-  padding: 14px 18px;
-  font-family: var(--mono); font-size: .72rem;
-  line-height: 1.85; min-height: 90px;
+  padding: 10px 14px;
+  font-family: var(--mono); font-size: .65rem;
+  line-height: 1.75; min-height: 70px;
 }
+.hero-badge.b2 { display: none; }
 .tl { display: flex; gap: 10px; opacity: 0; transform: translateY(3px); transition: opacity .08s, transform .08s; }
 .tl.vis { opacity: 1; transform: none; }
 .ln { color: #1e3040; min-width: 18px; text-align: right; flex-shrink: 0; font-size: .65rem; padding-top: 1px; }
@@ -436,62 +437,109 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 }
 .tech-grid li::before { content: '▹'; position: absolute; left: 0; color: var(--green); }
 
-/* PHOTO — smaller with zoom-in and animated side borders */
+/* PHOTO — pops from point with animated glowing border frame */
 .photo-box {
   position: relative;
-  width: 260px;
+  width: 240px;
   margin: 0 auto;
 }
-/* Animated corner accent borders */
+
+/* Four animated corner brackets that grow from center */
 .photo-box::before,
 .photo-box::after {
   content: '';
   position: absolute;
-  width: 40px; height: 40px;
+  width: 0; height: 0;
   border-color: var(--green);
   border-style: solid;
-  opacity: 0.6;
-  transition: all 0.4s ease;
-  z-index: 2;
+  z-index: 3;
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.4s ease;
+  opacity: 0;
 }
 .photo-box::before {
-  top: -8px; left: -8px;
+  top: -6px; left: -6px;
   border-width: 2px 0 0 2px;
+  animation: cornerGrow 1.2s 0.6s cubic-bezier(.22,.68,0,1.2) forwards;
 }
 .photo-box::after {
-  bottom: -8px; right: -8px;
+  bottom: -6px; right: -6px;
   border-width: 0 2px 2px 0;
+  animation: cornerGrow 1.2s 0.8s cubic-bezier(.22,.68,0,1.2) forwards;
 }
-.photo-box:hover::before { top: -12px; left: -12px; width: 52px; height: 52px; opacity: 1; }
-.photo-box:hover::after  { bottom: -12px; right: -12px; width: 52px; height: 52px; opacity: 1; }
+@keyframes cornerGrow {
+  0%   { width: 0; height: 0; opacity: 0; }
+  60%  { opacity: 1; }
+  100% { width: 36px; height: 36px; opacity: 0.7; }
+}
+.photo-box:hover::before { width: 48px; height: 48px; opacity: 1; top: -10px; left: -10px; }
+.photo-box:hover::after  { width: 48px; height: 48px; opacity: 1; bottom: -10px; right: -10px; }
+
+/* Opposite two corners via extra wrapper */
+.photo-corner-tr,
+.photo-corner-bl {
+  content: '';
+  position: absolute;
+  width: 0; height: 0;
+  border-color: var(--green);
+  border-style: solid;
+  z-index: 3;
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.4s ease;
+  pointer-events: none;
+}
+.photo-corner-tr {
+  top: -6px; right: -6px;
+  border-width: 2px 2px 0 0;
+  animation: cornerGrow 1.2s 1.0s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+.photo-corner-bl {
+  bottom: -6px; left: -6px;
+  border-width: 0 0 2px 2px;
+  animation: cornerGrow 1.2s 1.2s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+.photo-box:hover .photo-corner-tr { width: 48px; height: 48px; opacity: 1; top: -10px; right: -10px; }
+.photo-box:hover .photo-corner-bl { width: 48px; height: 48px; opacity: 1; bottom: -10px; left: -10px; }
+
+/* Glow ring that pulses */
+.photo-glow-ring {
+  position: absolute; inset: -3px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,229,160,0.0);
+  animation: photoRingPulse 3s 1.5s ease-in-out infinite;
+  pointer-events: none; z-index: 2;
+}
+@keyframes photoRingPulse {
+  0%,100% { border-color: rgba(0,229,160,0.0);  box-shadow: none; }
+  50%      { border-color: rgba(0,229,160,0.35); box-shadow: 0 0 18px rgba(0,229,160,0.15); }
+}
 
 .photo-inner2 {
   width: 100%; aspect-ratio: 3/4; border-radius: 6px;
   overflow: hidden; position: relative;
   background: var(--bg3);
-  border: 1px solid rgba(0,229,160,0.15);
+  border: 1px solid rgba(0,229,160,0.12);
   cursor: pointer;
-  animation: photoZoomIn 0.8s cubic-bezier(.22,.68,0,1.2) both;
-  animation-delay: 0.3s;
+  animation: photoBurst 1s 0.2s cubic-bezier(.22,.68,0,1.5) both;
 }
-@keyframes photoZoomIn {
-  from { opacity: 0; transform: scale(0.88); }
-  to   { opacity: 1; transform: scale(1); }
+@keyframes photoBurst {
+  0%   { opacity: 0; transform: scale(0.05); filter: blur(8px); }
+  60%  { opacity: 1; filter: blur(0); }
+  80%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
 .photo-inner2 img {
   width: 100%; height: 100%; object-fit: cover;
   filter: grayscale(20%);
-  transition: filter 0.4s ease, transform 0.5s ease;
+  transition: filter 0.5s ease, transform 0.5s ease;
 }
 .photo-box:hover .photo-inner2 img {
   filter: none;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 .photo-tint2 {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(0,229,160,0.10) 100%);
+  background: linear-gradient(180deg, transparent 55%, rgba(0,229,160,0.12) 100%);
   border-radius: 6px;
-  transition: var(--tr); pointer-events: none;
+  transition: opacity 0.4s; pointer-events: none;
 }
 .photo-box:hover .photo-tint2 { opacity: 0; }
 #photoFile { display: none; }
@@ -641,10 +689,10 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 .ct-title-row { margin-bottom: 14px; }
 .ct-h {
   font-family: var(--sans);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800; color: var(--white);
-  white-space: nowrap; margin: 0;
-  letter-spacing: -0.03em; line-height: 1.1;
+  font-size: 1.85rem;
+  font-weight: 700; color: var(--white);
+  margin: 0;
+  letter-spacing: -0.02em; line-height: 1.2;
 }
 .ct-h em { color: var(--green); font-style: normal; }
 
@@ -780,7 +828,7 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
   50%      { border-color: rgba(0,229,160,0.60); box-shadow: 0 0 16px rgba(0,229,160,0.12); }
 }
 
-/* Connect button + dropdown */
+/* Connect button */
 .ct-connect-wrap { position: relative; display: inline-block; }
 .ct-connect-btn {
   display: inline-flex; align-items: center; gap: 10px;
@@ -788,48 +836,89 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 }
 .ct-chevron {
   font-size: 0.65rem;
-  transition: transform 0.25s ease;
+  transition: transform 0.3s ease;
 }
-.ct-chevron.open { transform: rotate(180deg); }
+.ct-chevron.open { transform: rotate(45deg); }
 
-.ct-dropdown {
+/* Modal overlay */
+.ct-modal-overlay {
   display: none;
-  position: absolute; top: calc(100% + 10px); left: 0;
-  background: var(--card);
-  border: 1px solid rgba(0,229,160,0.22);
-  border-radius: 10px; padding: 8px;
-  min-width: 220px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,160,0.04);
-  z-index: 200;
-  animation: dropIn .2s ease;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(4,8,15,0.7);
+  backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
 }
-.ct-dropdown.open { display: block; }
-@keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+.ct-modal-overlay.open { display: flex; }
 
+/* Modal panel */
+.ct-modal {
+  background: var(--bg2);
+  border: 1px solid rgba(0,229,160,0.25);
+  border-radius: 14px;
+  padding: 0;
+  width: 340px;
+  max-width: 92vw;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,229,160,0.06);
+  animation: modalPop 0.28s cubic-bezier(.22,.68,0,1.3) both;
+  overflow: hidden;
+}
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.88) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Modal header */
+.ct-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.ct-modal-title {
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--green); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.ct-modal-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--slate); font-size: 1rem; line-height: 1;
+  transition: color 0.2s;
+  padding: 2px 6px; border-radius: 4px;
+}
+.ct-modal-close:hover { color: var(--green); background: var(--green-dim); }
+
+/* Modal items */
+.ct-modal-body { padding: 10px; }
 .ct-drop-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 14px; border-radius: 7px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px; border-radius: 8px;
   color: var(--slate2); text-decoration: none;
-  font-family: var(--mono); font-size: 0.78rem;
-  transition: var(--tr); position: relative; overflow: hidden;
+  font-family: var(--mono); font-size: 0.8rem;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 .ct-drop-item:hover {
   background: var(--green-dim);
   color: var(--green);
-  padding-left: 18px;
+  transform: translateX(4px);
 }
 .ct-drop-icon {
-  color: var(--green); width: 16px;
-  text-align: center; font-size: 0.9rem; flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(0,229,160,0.08);
+  border: 1px solid rgba(0,229,160,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green); font-size: 0.95rem; flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+.ct-drop-item:hover .ct-drop-icon {
+  background: rgba(0,229,160,0.15);
+  border-color: rgba(0,229,160,0.4);
 }
 .ct-drop-label { flex: 1; }
 .ct-drop-arrow {
-  font-size: 0.65rem; color: var(--green);
+  font-size: 0.6rem; color: var(--slate);
   opacity: 0; transform: translateX(-4px);
   transition: opacity 0.2s, transform 0.2s;
 }
-.ct-drop-item:hover .ct-drop-arrow { opacity: 1; transform: translateX(0); }
-.ct-drop-sep { height: 1px; background: var(--border); margin: 3px 0; }
+.ct-drop-item:hover .ct-drop-arrow { opacity: 1; transform: translateX(0); color: var(--green); }
+.ct-drop-sep { height: 1px; background: var(--border); margin: 4px 10px; }
 
 /* ============================================================
    FLOATING SECTION NUMBERS
@@ -969,10 +1058,9 @@ footer a:hover { color: var(--green); }
       </div>
     </div>
 
-    <!-- RIGHT — Live Typewriter Code Windows -->
+    <!-- RIGHT — Live Typewriter Code Window -->
     <div class="hero-right">
       <div class="hero-badge b1"><i class="fa-solid fa-circle" style="color:#28c840;font-size:.5rem;"></i> terraform apply — complete</div>
-      <div class="hero-badge b2"><i class="fa-brands fa-docker" style="margin-right:4px;"></i> 3/3 pods running</div>
 
       <div class="code-window">
         <div class="win-bar">
@@ -982,16 +1070,6 @@ footer a:hover { color: var(--green); }
         </div>
         <div class="code-body" id="tfBody"></div>
         <div class="win-status" id="tfStatus"><span class="win-status-dot"></span>Apply complete! Resources: 14 added, 0 changed, 0 destroyed.</div>
-      </div>
-
-      <div class="code-window">
-        <div class="win-bar">
-          <div class="win-dot red"></div><div class="win-dot yellow"></div><div class="win-dot green"></div>
-          <span class="win-title">durga@dp-lab:~/k8s/manifests</span>
-          <span class="win-badge">kubectl</span>
-        </div>
-        <div class="code-body" id="bashBody"></div>
-        <div class="win-status" id="bashStatus"><span class="win-status-dot"></span>deployment.apps/api-service rolled out — 3/3 ready</div>
       </div>
     </div>
   </section>
@@ -1041,8 +1119,11 @@ footer a:hover { color: var(--green); }
 
       <div class="rvr">
         <div class="photo-box" id="photoBox">
+          <div class="photo-corner-tr"></div>
+          <div class="photo-corner-bl"></div>
+          <div class="photo-glow-ring"></div>
           <div class="photo-inner2" id="photoInner">
-            <img src="assets/photo.png" alt="Durga Prasad" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s;" onclick="document.getElementById('photoFile').click()" title="Click to change photo"/>
+            <img src="assets/photo.png" alt="Durga Prasad" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(20%);transition:filter .5s,transform .5s;" onclick="document.getElementById('photoFile').click()" title="Click to change photo"/>
           </div>
           <div class="photo-tint2" id="phTint"></div>
         </div>
@@ -1309,13 +1390,23 @@ footer a:hover { color: var(--green); }
         <span class="ct-status-text">STATUS :: Available For Hire</span>
       </div>
 
-      <!-- Single connect button with dropdown -->
-      <div class="ct-connect-wrap" id="ctConnectWrap">
-        <button class="btn btn-g ct-connect-btn" onclick="toggleCtConnect(event)">
+      <!-- Let's Connect button -->
+      <div class="ct-connect-wrap">
+        <button class="btn btn-g ct-connect-btn" onclick="openCtModal()">
           <i class="fa-solid fa-terminal"></i> Let's Connect
-          <i class="fa-solid fa-chevron-down ct-chevron" id="ctChevron"></i>
+          <i class="fa-solid fa-plus ct-chevron" id="ctChevron"></i>
         </button>
-        <div class="ct-dropdown" id="ctDropdown">
+      </div>
+    </div>
+
+    <!-- Connect Modal (centered overlay) -->
+    <div class="ct-modal-overlay" id="ctModalOverlay" onclick="closeCtModal(event)">
+      <div class="ct-modal" id="ctModal">
+        <div class="ct-modal-head">
+          <span class="ct-modal-title"><i class="fa-solid fa-terminal" style="margin-right:6px;"></i>Choose how to connect</span>
+          <button class="ct-modal-close" onclick="closeCtModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ct-modal-body">
           <a class="ct-drop-item" href="#" onclick="handleContact(event,'email')">
             <span class="ct-drop-icon"><i class="fa-solid fa-envelope"></i></span>
             <span class="ct-drop-label">Email Me</span>
@@ -1484,19 +1575,6 @@ const TF_LINES = [
   { h:`<span class="tk-v">aws_eks_node_group.workers</span>: Creation complete <span class="tk-c">[id=prod:workers]</span>`, d:600 },
   { h:`<span class="tk-ok">Apply complete! Resources: 14 added, 0 changed, 0 destroyed.</span>`, d:300 },
 ];
-const BASH_LINES = [
-  { h:`<span class="tk-c tk-prompt-line">durga@dp-lab:~/k8s/manifests$ kubectl apply -f deployment.yaml</span>`, d:80 },
-  { h:`<span class="tk-v">deployment.apps/api-service</span> configured`, d:180 },
-  { h:`<span class="tk-v">service/api-service</span> configured`, d:120 },
-  { h:`<span class="tk-v">hpa/api-service</span> configured`, d:100 },
-  { h:`<span class="tk-c tk-prompt-line">durga@dp-lab:~/k8s/manifests$ kubectl rollout status deploy/api-service</span>`, d:200 },
-  { h:`Waiting for deployment <span class="tk-s">"api-service"</span> rollout to finish...`, d:180 },
-  { h:`&nbsp;&nbsp;1 of 3 updated replicas are available...`, d:350 },
-  { h:`&nbsp;&nbsp;2 of 3 updated replicas are available...`, d:350 },
-  { h:`&nbsp;&nbsp;3 of 3 updated replicas are available...`, d:350 },
-  { h:`<span class="tk-ok">deployment "api-service" successfully rolled out</span>`, d:200 },
-];
-
 function runTypewriter(containerId, statusId, lines, startDelay) {
   const body = document.getElementById(containerId);
   const status = document.getElementById(statusId);
@@ -1528,23 +1606,25 @@ function runTypewriter(containerId, statusId, lines, startDelay) {
 }
 
 window.addEventListener('load', () => {
-  setTimeout(() => runTypewriter('tfBody',   'tfStatus',   TF_LINES,   400), 600);
-  setTimeout(() => runTypewriter('bashBody', 'bashStatus', BASH_LINES, 400), 1800);
+  setTimeout(() => runTypewriter('tfBody', 'tfStatus', TF_LINES, 400), 600);
 });
-/* ── CONNECT DROPDOWN ── */
-function toggleCtConnect(e) {
-  e.stopPropagation();
-  const dd = document.getElementById('ctDropdown');
-  const ch = document.getElementById('ctChevron');
-  const isOpen = dd.classList.toggle('open');
-  ch.classList.toggle('open', isOpen);
+/* ── CONNECT MODAL ── */
+function openCtModal() {
+  const overlay = document.getElementById('ctModalOverlay');
+  const chevron = document.getElementById('ctChevron');
+  overlay.classList.add('open');
+  if (chevron) chevron.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-document.addEventListener('click', () => {
-  const dd = document.getElementById('ctDropdown');
-  const ch = document.getElementById('ctChevron');
-  if (dd) { dd.classList.remove('open'); }
-  if (ch) { ch.classList.remove('open'); }
-});
+function closeCtModal(e) {
+  if (e && e.target !== document.getElementById('ctModalOverlay')) return;
+  const overlay = document.getElementById('ctModalOverlay');
+  const chevron = document.getElementById('ctChevron');
+  overlay.classList.remove('open');
+  if (chevron) chevron.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCtModal(); } });
 
 </script>
 
