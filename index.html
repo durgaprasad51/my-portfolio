@@ -155,14 +155,7 @@ nav a {
 }
 nav a:hover { color: var(--green); background: var(--green-dim); }
 .nav-num { color: var(--green); font-size: 0.62rem; margin-right: 4px; opacity: 0.7; }
-.nav-resume {
-  font-family: var(--mono); font-size: 0.76rem;
-  color: var(--green); border: 1px solid rgba(0,229,160,0.5);
-  padding: 7px 18px; border-radius: 4px; margin-left: 10px;
-  transition: var(--tr); cursor: pointer;
-  letter-spacing: 0.04em;
-}
-.nav-resume:hover { background: var(--green-dim); box-shadow: 0 0 18px var(--green-glow); }
+
 .ham { display: none; background: none; border: none; color: var(--green); font-size: 1.2rem; cursor: pointer; }
 
 /* ============================================================
@@ -262,11 +255,11 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 
 .hero-name {
   font-family: var(--sans);
-  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
-  font-weight: 800; color: var(--white);
-  line-height: 1.0; margin-bottom: 12px;
+  font-size: 1.85rem;
+  font-weight: 700; color: var(--white);
+  line-height: 1.2; margin-bottom: 14px;
   opacity: 0; animation: hUp .5s .55s forwards;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .hero-role {
@@ -365,6 +358,7 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 .tk-n  { color: #f07178; }
 .tk-p  { color: #b8cfe6; }
 .tk-ok { color: #28c840; font-weight: 600; }
+.tk-prompt-line { color: var(--green); opacity: 0.85; }
 .win-status {
   padding: 6px 18px 10px;
   font-family: var(--mono); font-size: .6rem;
@@ -425,7 +419,7 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
    ABOUT
    ============================================================ */
 .about-grid {
-  display: grid; grid-template-columns: 1fr 380px;
+  display: grid; grid-template-columns: 1fr 300px;
   gap: 52px; align-items: start;
 }
 .about-body p {
@@ -442,19 +436,61 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 }
 .tech-grid li::before { content: '▹'; position: absolute; left: 0; color: var(--green); }
 
-/* PHOTO */
-.photo-box { position: relative; width: 100%; }
-.photo-inner2 {
-  width: 100%; aspect-ratio: 3/4; border-radius: 8px;
-  overflow: hidden; position: relative;
-  background: var(--bg3); border: 1px solid var(--border); cursor: pointer;
+/* PHOTO — smaller with zoom-in and animated side borders */
+.photo-box {
+  position: relative;
+  width: 260px;
+  margin: 0 auto;
 }
-.photo-inner2 img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%); transition: var(--tr); }
-.photo-box:hover .photo-inner2 img { filter: none; }
+/* Animated corner accent borders */
+.photo-box::before,
+.photo-box::after {
+  content: '';
+  position: absolute;
+  width: 40px; height: 40px;
+  border-color: var(--green);
+  border-style: solid;
+  opacity: 0.6;
+  transition: all 0.4s ease;
+  z-index: 2;
+}
+.photo-box::before {
+  top: -8px; left: -8px;
+  border-width: 2px 0 0 2px;
+}
+.photo-box::after {
+  bottom: -8px; right: -8px;
+  border-width: 0 2px 2px 0;
+}
+.photo-box:hover::before { top: -12px; left: -12px; width: 52px; height: 52px; opacity: 1; }
+.photo-box:hover::after  { bottom: -12px; right: -12px; width: 52px; height: 52px; opacity: 1; }
+
+.photo-inner2 {
+  width: 100%; aspect-ratio: 3/4; border-radius: 6px;
+  overflow: hidden; position: relative;
+  background: var(--bg3);
+  border: 1px solid rgba(0,229,160,0.15);
+  cursor: pointer;
+  animation: photoZoomIn 0.8s cubic-bezier(.22,.68,0,1.2) both;
+  animation-delay: 0.3s;
+}
+@keyframes photoZoomIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.photo-inner2 img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(20%);
+  transition: filter 0.4s ease, transform 0.5s ease;
+}
+.photo-box:hover .photo-inner2 img {
+  filter: none;
+  transform: scale(1.04);
+}
 .photo-tint2 {
   position: absolute; inset: 0;
-  background: rgba(0,229,160,0.07);
-  mix-blend-mode: multiply; border-radius: 8px;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,229,160,0.10) 100%);
+  border-radius: 6px;
   transition: var(--tr); pointer-events: none;
 }
 .photo-box:hover .photo-tint2 { opacity: 0; }
@@ -548,22 +584,6 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
   50%      { border-color:rgba(0,229,160,.5); color:var(--green); }
 }
 .pill.hot { animation: flashPill 2.5s ease-in-out infinite; }
-
-/* ============================================================
-   EDUCATION
-   ============================================================ */
-.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.edu-card {
-  display: flex; gap: 16px; align-items: flex-start;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 8px; padding: 22px 24px;
-  transition: var(--tr);
-}
-.edu-card:hover { border-color: rgba(0,229,160,.25); transform: translateY(-3px); }
-.edu-ic { font-size: 1.4rem; color: var(--green); flex-shrink: 0; margin-top: 2px; }
-.edu-t { font-size: .95rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.edu-org { font-family: var(--mono); font-size: .7rem; color: var(--green); margin-bottom: 6px; }
-.edu-d { font-size: .85rem; color: var(--slate2); line-height: 1.55; }
 
 /* ============================================================
    PROJECTS
@@ -727,31 +747,89 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 }
 .ct-card:hover .ct-card-arrow { opacity: 1; transform: translateX(0); }
 
-/* Flash animations */
-.flash-line { opacity: 0; animation: flashIn 0.6s forwards; }
-.flash-line.delay-1 { animation-delay: 0.5s; }
-.flash-line.delay-2 { animation-delay: 1.0s; }
-.flash-line.delay-3 { animation-delay: 1.5s; }
-
-@keyframes flashIn {
-  0%   { opacity: 0; transform: translateX(-8px); }
-  40%  { opacity: 1; transform: translateX(2px); }
-  100% { opacity: 1; transform: translateX(0); }
+/* ── Contact actions layout ── */
+.ct-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 4px;
 }
-.ct-blink { color: var(--green); animation: blink 1s step-end infinite; }
 
-.typing {
-  overflow: hidden; white-space: nowrap;
-  border-right: 2px solid var(--green); width: 0;
-  animation: typeCmd 1.2s steps(18) forwards, removeCursor 0s 1.3s forwards;
+/* Status badge */
+.ct-status-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 0.78rem;
+  color: var(--green); font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 10px 20px;
+  border: 1px solid rgba(0,229,160,0.30);
+  border-radius: 6px;
+  background: rgba(0,229,160,0.05);
+  animation: statusPulse 3s ease-in-out infinite;
 }
-@keyframes typeCmd   { to { width: 16ch; } }
-@keyframes removeCursor { to { border-color: transparent; } }
+.ct-status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: dotPulse 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes statusPulse {
+  0%,100% { border-color: rgba(0,229,160,0.30); box-shadow: none; }
+  50%      { border-color: rgba(0,229,160,0.60); box-shadow: 0 0 16px rgba(0,229,160,0.12); }
+}
 
-@keyframes pulse-green {
-  0%,100% { text-shadow: 0 0 4px rgba(0,229,160,0.4); }
-  50%      { text-shadow: 0 0 14px rgba(0,229,160,0.9); }
+/* Connect button + dropdown */
+.ct-connect-wrap { position: relative; display: inline-block; }
+.ct-connect-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 11px 24px;
 }
+.ct-chevron {
+  font-size: 0.65rem;
+  transition: transform 0.25s ease;
+}
+.ct-chevron.open { transform: rotate(180deg); }
+
+.ct-dropdown {
+  display: none;
+  position: absolute; top: calc(100% + 10px); left: 0;
+  background: var(--card);
+  border: 1px solid rgba(0,229,160,0.22);
+  border-radius: 10px; padding: 8px;
+  min-width: 220px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,160,0.04);
+  z-index: 200;
+  animation: dropIn .2s ease;
+}
+.ct-dropdown.open { display: block; }
+@keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+
+.ct-drop-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-radius: 7px;
+  color: var(--slate2); text-decoration: none;
+  font-family: var(--mono); font-size: 0.78rem;
+  transition: var(--tr); position: relative; overflow: hidden;
+}
+.ct-drop-item:hover {
+  background: var(--green-dim);
+  color: var(--green);
+  padding-left: 18px;
+}
+.ct-drop-icon {
+  color: var(--green); width: 16px;
+  text-align: center; font-size: 0.9rem; flex-shrink: 0;
+}
+.ct-drop-label { flex: 1; }
+.ct-drop-arrow {
+  font-size: 0.65rem; color: var(--green);
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.ct-drop-item:hover .ct-drop-arrow { opacity: 1; transform: translateX(0); }
+.ct-drop-sep { height: 1px; background: var(--border); margin: 3px 0; }
 
 /* ============================================================
    FLOATING SECTION NUMBERS
@@ -763,42 +841,6 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
   pointer-events: none; line-height: 1;
   top: -20px; letter-spacing: -.05em;
 }
-
-/* ============================================================
-   PDF OVERLAY
-   ============================================================ */
-#pdfOverlay {
-  display: none; position: fixed; inset: 0; z-index: 10000;
-  background: rgba(4,8,15,0.96); backdrop-filter: blur(14px);
-  flex-direction: column;
-}
-#pdfOverlay.open { display: flex; }
-.pdf-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 24px;
-  background: rgba(9,14,26,0.9);
-  border-bottom: 1px solid var(--border); flex-shrink: 0;
-}
-.pdf-bar-title {
-  font-family: var(--mono); font-size: .8rem; color: var(--green);
-  display: flex; align-items: center; gap: 10px;
-}
-.pdf-close {
-  background: none; border: 1px solid var(--border); color: var(--slate2);
-  font-family: var(--mono); font-size: .72rem; padding: 6px 14px;
-  border-radius: 4px; cursor: pointer; transition: var(--tr);
-  display: flex; align-items: center; gap: 8px;
-}
-.pdf-close:hover { color: var(--green); border-color: var(--green); }
-.pdf-frame-wrap { flex: 1; overflow: hidden; }
-.pdf-frame-wrap iframe { width: 100%; height: 100%; border: none; }
-.pdf-no-dl {
-  font-family: var(--mono); font-size: .6rem; color: var(--slate);
-  padding: 4px 12px; border-radius: 100px;
-  background: rgba(0,229,160,0.05); border: 1px solid rgba(0,229,160,0.10);
-  display: flex; align-items: center; gap: 6px;
-}
-.pdf-no-dl i { color: var(--green); }
 
 /* ============================================================
    FOOTER
@@ -885,7 +927,6 @@ footer a:hover { color: var(--green); }
   <a href="#skills"     onclick="closeMob()">Tools</a>
   <a href="#projects"   onclick="closeMob()">Projects</a>
   <a href="#contact"    onclick="closeMob()">Contact</a>
-  <a href="#" onclick="openResume();closeMob();" class="btn btn-g" style="margin-top:8px;">Resume</a>
 </div>
 
 <!-- HEADER -->
@@ -906,7 +947,6 @@ footer a:hover { color: var(--green); }
     <a href="#skills"><span class="nav-num">03.</span>Tools</a>
     <a href="#projects"><span class="nav-num">04.</span>Projects</a>
     <a href="#contact"><span class="nav-num">05.</span>Contact</a>
-    <a href="#" onclick="openResume(); return false;" class="nav-resume"><i class="fa-regular fa-file-lines" style="font-size:.8rem;"></i> Resume</a>
   </nav>
   <button class="ham" id="ham" onclick="toggleMob()"><i class="fa-solid fa-bars" id="hamIcon"></i></button>
 </header>
@@ -918,7 +958,7 @@ footer a:hover { color: var(--green); }
   <section id="hero">
     <div class="hero-left">
       <p class="hero-greet">whoami</p>
-      <h1 class="hero-name">Durga Prasad.</h1>
+      <h1 class="hero-name">Durga Prasad</h1>
       <h2 class="hero-role">I automate &amp; optimize workflows for seamless deployment.</h2>
       <p class="hero-desc">
         As a DevOps professional with 18+ years of experience, I excel in automation
@@ -926,51 +966,32 @@ footer a:hover { color: var(--green); }
       </p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-g"><i class="fa-solid fa-terminal"></i> Hire Me</a>
-        <a href="#" onclick="openResume(); return false;" class="btn btn-gf"><i class="fa-regular fa-file-lines"></i> Resume</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hstat">
-          <span class="hstat-num" id="cntYears">0+</span>
-          <span class="hstat-lbl">Years Exp</span>
-        </div>
-        <div class="hstat">
-          <span class="hstat-num" id="cntCo">0</span>
-          <span class="hstat-lbl">Companies</span>
-        </div>
-        <div class="hstat">
-          <span class="hstat-num" id="cntSrv">0+</span>
-          <span class="hstat-lbl">Servers Managed</span>
-        </div>
-        <div class="hstat">
-          <span class="hstat-num" id="cntProj">0+</span>
-          <span class="hstat-lbl">Projects</span>
-        </div>
       </div>
     </div>
 
     <!-- RIGHT — Live Typewriter Code Windows -->
     <div class="hero-right">
-      <div class="hero-badge b1"><i class="fa-solid fa-circle" style="color:#28c840;font-size:.5rem;"></i> terraform apply running...</div>
-      <div class="hero-badge b2"><i class="fa-brands fa-docker" style="margin-right:4px;"></i> 3/3 pods ready</div>
+      <div class="hero-badge b1"><i class="fa-solid fa-circle" style="color:#28c840;font-size:.5rem;"></i> terraform apply — complete</div>
+      <div class="hero-badge b2"><i class="fa-brands fa-docker" style="margin-right:4px;"></i> 3/3 pods running</div>
 
       <div class="code-window">
         <div class="win-bar">
           <div class="win-dot red"></div><div class="win-dot yellow"></div><div class="win-dot green"></div>
-          <span class="win-title">~/infra/eks/main.tf</span>
+          <span class="win-title">durga@dp-lab:~/infra/eks</span>
           <span class="win-badge">terraform</span>
         </div>
         <div class="code-body" id="tfBody"></div>
-        <div class="win-status" id="tfStatus"><span class="win-status-dot"></span>Apply complete! 12 resources added.</div>
+        <div class="win-status" id="tfStatus"><span class="win-status-dot"></span>Apply complete! Resources: 14 added, 0 changed, 0 destroyed.</div>
       </div>
 
       <div class="code-window">
         <div class="win-bar">
           <div class="win-dot red"></div><div class="win-dot yellow"></div><div class="win-dot green"></div>
-          <span class="win-title">~/pipeline/deploy.sh</span>
-          <span class="win-badge">bash</span>
+          <span class="win-title">durga@dp-lab:~/k8s/manifests</span>
+          <span class="win-badge">kubectl</span>
         </div>
         <div class="code-body" id="bashBody"></div>
-        <div class="win-status" id="bashStatus"><span class="win-status-dot"></span>Deployment successful · 3/3 replicas healthy</div>
+        <div class="win-status" id="bashStatus"><span class="win-status-dot"></span>deployment.apps/api-service rolled out — 3/3 ready</div>
       </div>
     </div>
   </section>
@@ -1203,33 +1224,6 @@ footer a:hover { color: var(--green); }
     </div>
   </section>
 
-  <div class="divider"></div>
-
-  <!-- ==================== EDUCATION ==================== -->
-  <section id="education" style="position:relative;">
-    <div class="float-num">04</div>
-    <h2 class="sec-title rv">Education &amp; <em>Certifications</em></h2>
-    <div class="edu-grid">
-      <div class="edu-card rv">
-        <div class="edu-ic"><i class="fa-solid fa-trophy"></i></div>
-        <div>
-          <div class="edu-t">Certified DevOps Engineer</div>
-          <div class="edu-org">Intellipaat</div>
-          <div class="edu-d">Professional certification covering the full DevOps lifecycle — CI/CD, containers, cloud and automation.</div>
-        </div>
-      </div>
-      <div class="edu-card rv">
-        <div class="edu-ic"><i class="fa-solid fa-graduation-cap"></i></div>
-        <div>
-          <div class="edu-t">Bachelor of Arts</div>
-          <div class="edu-org">IEC University, Himachal Pradesh</div>
-          <div class="edu-d">Foundation in analytical and structured problem-solving applied across all engineering disciplines.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
 
   <!-- ==================== PROJECTS ==================== -->
   <section id="projects" style="position:relative;">
@@ -1308,52 +1302,50 @@ footer a:hover { color: var(--green); }
       </p>
     </div>
 
-    <div class="ct-bottom-row">
-      <!-- Terminal -->
-      <div class="ct-terminal">
-        <div class="ct-terminal-bar">
-          <span class="ct-dot red"></span>
-          <span class="ct-dot yellow"></span>
-          <span class="ct-dot green"></span>
-          <span class="ct-terminal-title">contact.sh</span>
-        </div>
-        <div class="ct-terminal-body">
-          <div class="ct-tline"><span class="ct-prompt">$</span><span class="ct-cmd typing">./reach_out.sh</span></div>
-          <div class="ct-tline flash-line"><span class="ct-key">STATUS</span><span class="ct-colon"> :: </span><span class="ct-tval available">AVAILABLE FOR HIRE</span></div>
-          <div class="ct-tline flash-line delay-1"><span class="ct-key">ROLE</span><span class="ct-colon"> :: </span><span class="ct-tval">Cloud DevOps Engineer</span></div>
-          <div class="ct-tline flash-line delay-2"><span class="ct-key">MODE</span><span class="ct-colon"> :: </span><span class="ct-tval">Full-time · Freelance</span></div>
-          <div class="ct-tline flash-line delay-3"><span class="ct-key">RESPONSE</span><span class="ct-colon"> :: </span><span class="ct-tval">&lt; 24 hrs</span></div>
-          <div class="ct-tline"><span class="ct-prompt">$</span><span class="ct-blink">▋</span></div>
-        </div>
+    <div class="ct-actions rv">
+      <!-- Status badge -->
+      <div class="ct-status-badge">
+        <span class="ct-status-dot"></span>
+        <span class="ct-status-text">STATUS :: Available For Hire</span>
       </div>
 
-      <!-- Cards -->
-      <div class="ct-cards">
-        <a class="ct-card" href="#" onclick="handleContact(event,'email')">
-          <span class="ct-card-icon"><i class="fa-solid fa-envelope"></i></span>
-          <span class="ct-card-label">Email Me</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-        <a class="ct-card" href="#" onclick="handleContact(event,'phone')">
-          <span class="ct-card-icon"><i class="fa-solid fa-phone"></i></span>
-          <span class="ct-card-label">Call Me</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-        <a class="ct-card" href="#" onclick="handleContact(event,'whatsapp')">
-          <span class="ct-card-icon"><i class="fa-brands fa-whatsapp"></i></span>
-          <span class="ct-card-label">WhatsApp</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-        <a class="ct-card" href="#" onclick="handleContact(event,'linkedin')">
-          <span class="ct-card-icon"><i class="fa-brands fa-linkedin-in"></i></span>
-          <span class="ct-card-label">LinkedIn</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-        <a class="ct-card" href="#" onclick="handleContact(event,'github')">
-          <span class="ct-card-icon"><i class="fa-brands fa-github"></i></span>
-          <span class="ct-card-label">GitHub</span>
-          <span class="ct-card-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
+      <!-- Single connect button with dropdown -->
+      <div class="ct-connect-wrap" id="ctConnectWrap">
+        <button class="btn btn-g ct-connect-btn" onclick="toggleCtConnect(event)">
+          <i class="fa-solid fa-terminal"></i> Let's Connect
+          <i class="fa-solid fa-chevron-down ct-chevron" id="ctChevron"></i>
+        </button>
+        <div class="ct-dropdown" id="ctDropdown">
+          <a class="ct-drop-item" href="#" onclick="handleContact(event,'email')">
+            <span class="ct-drop-icon"><i class="fa-solid fa-envelope"></i></span>
+            <span class="ct-drop-label">Email Me</span>
+            <i class="fa-solid fa-arrow-right ct-drop-arrow"></i>
+          </a>
+          <div class="ct-drop-sep"></div>
+          <a class="ct-drop-item" href="#" onclick="handleContact(event,'phone')">
+            <span class="ct-drop-icon"><i class="fa-solid fa-phone"></i></span>
+            <span class="ct-drop-label">Call Me</span>
+            <i class="fa-solid fa-arrow-right ct-drop-arrow"></i>
+          </a>
+          <div class="ct-drop-sep"></div>
+          <a class="ct-drop-item" href="#" onclick="handleContact(event,'whatsapp')">
+            <span class="ct-drop-icon"><i class="fa-brands fa-whatsapp"></i></span>
+            <span class="ct-drop-label">WhatsApp</span>
+            <i class="fa-solid fa-arrow-right ct-drop-arrow"></i>
+          </a>
+          <div class="ct-drop-sep"></div>
+          <a class="ct-drop-item" href="#" onclick="handleContact(event,'linkedin')">
+            <span class="ct-drop-icon"><i class="fa-brands fa-linkedin-in"></i></span>
+            <span class="ct-drop-label">LinkedIn</span>
+            <i class="fa-solid fa-arrow-right ct-drop-arrow"></i>
+          </a>
+          <div class="ct-drop-sep"></div>
+          <a class="ct-drop-item" href="#" onclick="handleContact(event,'github')">
+            <span class="ct-drop-icon"><i class="fa-brands fa-github"></i></span>
+            <span class="ct-drop-label">GitHub</span>
+            <i class="fa-solid fa-arrow-right ct-drop-arrow"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -1364,21 +1356,6 @@ footer a:hover { color: var(--green); }
 <footer>
   <p>Designed &amp; Built by <a href="#hero">Durga Prasad</a> &nbsp;·&nbsp; Cloud DevOps Engineer &nbsp;·&nbsp; &copy; <span id="yr"></span></p>
 </footer>
-
-<!-- PDF RESUME OVERLAY -->
-<div id="pdfOverlay">
-  <div class="pdf-bar">
-    <div class="pdf-bar-title">
-      <i class="fa-regular fa-file-lines"></i>
-      Durga Prasad — Resume
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <div class="pdf-no-dl"><i class="fa-solid fa-lock"></i> View only · not downloadable</div>
-      <button class="pdf-close" onclick="closeResume()"><i class="fa-solid fa-xmark"></i> Close</button>
-    </div>
-  </div>
-  <div class="pdf-frame-wrap" id="pdfFrameWrap"></div>
-</div>
 
 <!-- ====================== SCRIPTS ====================== -->
 <script>
@@ -1400,8 +1377,11 @@ footer a:hover { color: var(--green); }
   };
 })();
 
-/* ── RESUME PATH — update this ── */
-const RESUME_URL = 'assets/resume.pdf';
+/* ── SIDEBARS SHOW ── */
+window.addEventListener('load', () => {
+  document.getElementById('sideL').classList.add('show');
+  document.getElementById('sideR').classList.add('show');
+});
 
 /* ── CUSTOM CURSOR ── */
 const dot = document.getElementById('cursor-dot');
@@ -1415,7 +1395,7 @@ function animCursor() {
   requestAnimationFrame(animCursor);
 }
 animCursor();
-document.querySelectorAll('a,button,.pill-a,.pill,.tab,.sk-card,.edu-card,.ct-card').forEach(el => {
+document.querySelectorAll('a,button,.pill-a,.pill,.tab,.sk-card,.ct-drop-item,.ct-connect-btn').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
@@ -1430,16 +1410,6 @@ document.addEventListener('keydown', e => {
   if (e.metaKey && ['u','s','a'].includes(k)) { e.preventDefault(); return; }
 });
 document.addEventListener('dragstart', e => e.preventDefault());
-
-/* ── SIDEBARS SHOW ── */
-window.addEventListener('load', () => {
-  document.getElementById('sideL').classList.add('show');
-  document.getElementById('sideR').classList.add('show');
-  animateCount('cntYears', 18, '+');
-  animateCount('cntCo',    5);
-  animateCount('cntSrv',   1500, '+');
-  animateCount('cntProj',  5, '+');
-});
 
 /* ── HEADER SHADOW ── */
 window.addEventListener('scroll', () => {
@@ -1489,37 +1459,6 @@ function loadPhoto(e) {
   reader.readAsDataURL(file);
 }
 
-/* ── RESUME OVERLAY ── */
-let resumeLoaded = false;
-function openResume() {
-  document.getElementById('pdfOverlay').classList.add('open');
-  if (!resumeLoaded) {
-    const iframe = document.createElement('iframe');
-    iframe.src = RESUME_URL + '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
-    iframe.style.cssText = 'width:100%;height:100%;border:none;';
-    document.getElementById('pdfFrameWrap').appendChild(iframe);
-    resumeLoaded = true;
-  }
-  document.body.style.overflow = 'hidden';
-}
-function closeResume() {
-  document.getElementById('pdfOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key==='Escape') closeResume(); });
-
-/* ── COUNTER ── */
-function animateCount(id, target, suffix='') {
-  const el = document.getElementById(id); if (!el) return;
-  let cur = 0;
-  const step = Math.max(1, Math.round(target/60));
-  const t = setInterval(() => {
-    cur = Math.min(cur+step, target);
-    el.textContent = cur+suffix;
-    if (cur>=target) clearInterval(t);
-  }, 20);
-}
-
 /* ── YEAR ── */
 document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -1534,25 +1473,28 @@ setInterval(() => {
 
 /* ── TYPEWRITER ── */
 const TF_LINES = [
-  { h:`<span class="tk-c"># Provisioning EKS with Terraform</span>`, d:120 },
-  { h:`<span class="tk-k">module</span> <span class="tk-p">"</span><span class="tk-n">eks</span><span class="tk-p">"</span> <span class="tk-p">{</span>`, d:160 },
-  { h:`&nbsp;&nbsp;<span class="tk-k">source</span>         <span class="tk-p">=</span> <span class="tk-s">"terraform-aws-modules/eks/aws"</span>`, d:140 },
-  { h:`&nbsp;&nbsp;<span class="tk-k">cluster_name</span>   <span class="tk-p">=</span> <span class="tk-s">"prod-eks-cluster"</span>`, d:130 },
-  { h:`&nbsp;&nbsp;<span class="tk-k">cluster_version</span> <span class="tk-p">=</span> <span class="tk-s">"1.29"</span>`, d:120 },
-  { h:`&nbsp;&nbsp;<span class="tk-k">vpc_id</span>         <span class="tk-p">=</span> <span class="tk-f">module</span><span class="tk-p">.</span><span class="tk-n">vpc</span><span class="tk-p">.</span><span class="tk-v">vpc_id</span>`, d:130 },
-  { h:`&nbsp;&nbsp;<span class="tk-k">subnet_ids</span>     <span class="tk-p">=</span> <span class="tk-f">module</span><span class="tk-p">.</span><span class="tk-n">vpc</span><span class="tk-p">.</span><span class="tk-v">private_subnets</span>`, d:140 },
-  { h:`&nbsp;&nbsp;<span class="tk-k">enable_irsa</span>    <span class="tk-p">=</span> <span class="tk-v">true</span>`, d:110 },
-  { h:`<span class="tk-p">}</span>`, d:100 },
-  { h:`<span class="tk-ok">✓ Apply complete! 12 resources added.</span>`, d:300 },
+  { h:`<span class="tk-c tk-prompt-line">durga@dp-lab:~/infra/eks$ terraform apply -auto-approve</span>`, d:80 },
+  { h:`<span class="tk-c">Plan: 14 to add, 0 to change, 0 to destroy.</span>`, d:200 },
+  { h:`<span class="tk-v">aws_vpc.main</span>: Creating...`, d:180 },
+  { h:`<span class="tk-v">aws_vpc.main</span>: Creation complete <span class="tk-c">[id=vpc-0a3f2e8c1d]</span>`, d:400 },
+  { h:`<span class="tk-v">aws_subnet.private[0]</span>: Creating...`, d:160 },
+  { h:`<span class="tk-v">aws_subnet.private[1]</span>: Creating...`, d:60 },
+  { h:`<span class="tk-v">aws_eks_cluster.prod</span>: Creating... <span class="tk-c">[10s elapsed]</span>`, d:500 },
+  { h:`<span class="tk-v">aws_eks_node_group.workers</span>: Creating...`, d:400 },
+  { h:`<span class="tk-v">aws_eks_node_group.workers</span>: Creation complete <span class="tk-c">[id=prod:workers]</span>`, d:600 },
+  { h:`<span class="tk-ok">Apply complete! Resources: 14 added, 0 changed, 0 destroyed.</span>`, d:300 },
 ];
 const BASH_LINES = [
-  { h:`<span class="tk-c">#!/bin/bash  —  GitHub Actions deploy</span>`, d:120 },
-  { h:`<span class="tk-f">docker</span> build <span class="tk-v">-t</span> api:<span class="tk-s">$GITHUB_SHA</span> .`, d:150 },
-  { h:`<span class="tk-f">docker</span> push <span class="tk-s">$ECR_REPO</span>/api:<span class="tk-s">$GITHUB_SHA</span>`, d:140 },
-  { h:`<span class="tk-f">helm</span> upgrade <span class="tk-n">--install</span> api ./charts/api <span class="tk-p">\\</span>`, d:130 },
-  { h:`&nbsp;&nbsp;<span class="tk-v">--set</span> image.tag=<span class="tk-s">$GITHUB_SHA</span>`, d:120 },
-  { h:`<span class="tk-f">kubectl</span> rollout status deploy/api`, d:140 },
-  { h:`<span class="tk-ok">✓ Deployment successful — 3/3 replicas ready</span>`, d:300 },
+  { h:`<span class="tk-c tk-prompt-line">durga@dp-lab:~/k8s/manifests$ kubectl apply -f deployment.yaml</span>`, d:80 },
+  { h:`<span class="tk-v">deployment.apps/api-service</span> configured`, d:180 },
+  { h:`<span class="tk-v">service/api-service</span> configured`, d:120 },
+  { h:`<span class="tk-v">hpa/api-service</span> configured`, d:100 },
+  { h:`<span class="tk-c tk-prompt-line">durga@dp-lab:~/k8s/manifests$ kubectl rollout status deploy/api-service</span>`, d:200 },
+  { h:`Waiting for deployment <span class="tk-s">"api-service"</span> rollout to finish...`, d:180 },
+  { h:`&nbsp;&nbsp;1 of 3 updated replicas are available...`, d:350 },
+  { h:`&nbsp;&nbsp;2 of 3 updated replicas are available...`, d:350 },
+  { h:`&nbsp;&nbsp;3 of 3 updated replicas are available...`, d:350 },
+  { h:`<span class="tk-ok">deployment "api-service" successfully rolled out</span>`, d:200 },
 ];
 
 function runTypewriter(containerId, statusId, lines, startDelay) {
@@ -1589,6 +1531,21 @@ window.addEventListener('load', () => {
   setTimeout(() => runTypewriter('tfBody',   'tfStatus',   TF_LINES,   400), 600);
   setTimeout(() => runTypewriter('bashBody', 'bashStatus', BASH_LINES, 400), 1800);
 });
+/* ── CONNECT DROPDOWN ── */
+function toggleCtConnect(e) {
+  e.stopPropagation();
+  const dd = document.getElementById('ctDropdown');
+  const ch = document.getElementById('ctChevron');
+  const isOpen = dd.classList.toggle('open');
+  ch.classList.toggle('open', isOpen);
+}
+document.addEventListener('click', () => {
+  const dd = document.getElementById('ctDropdown');
+  const ch = document.getElementById('ctChevron');
+  if (dd) { dd.classList.remove('open'); }
+  if (ch) { ch.classList.remove('open'); }
+});
+
 </script>
 
 </body>
