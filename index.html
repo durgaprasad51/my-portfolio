@@ -265,8 +265,8 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
   opacity: 0; animation: hUp .5s .4s forwards;
 }
 .hero-greet::before {
-  content: ''; display: inline-block;
-  width: 36px; height: 1px; background: var(--green); opacity: 0.5;
+  content: '$';
+  color: var(--green); opacity: 0.8;
 }
 
 .hero-name {
@@ -533,7 +533,6 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
   overflow: hidden; position: relative;
   background: var(--bg3);
   border: 1px solid rgba(0,229,160,0.12);
-  cursor: pointer;
   animation: photoBurst 1s 0.2s cubic-bezier(.22,.68,0,1.5) both;
 }
 @keyframes photoBurst {
@@ -1138,11 +1137,10 @@ footer a:hover { color: var(--green); }
           <div class="photo-corner-bl"></div>
           <div class="photo-glow-ring"></div>
           <div class="photo-inner2" id="photoInner">
-            <img src="assets/photo.png" alt="Durga Prasad" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(20%);transition:filter .5s,transform .5s;" onclick="document.getElementById('photoFile').click()" title="Click to change photo"/>
+            <img src="assets/photo.png" alt="Durga Prasad" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(20%);transition:filter .5s,transform .5s;"/>
           </div>
           <div class="photo-tint2" id="phTint"></div>
         </div>
-        <input type="file" id="photoFile" accept="image/*" onchange="loadPhoto(event)"/>
       </div>
     </div>
   </section>
@@ -1549,21 +1547,7 @@ function closeMob() {
   document.getElementById('hamIcon').className = 'fa-solid fa-bars';
 }
 
-/* ── PHOTO UPLOADER ── */
-function loadPhoto(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const inner = document.getElementById('photoInner');
-    inner.innerHTML = '';
-    const img = document.createElement('img');
-    img.src = ev.target.result; img.alt = 'Durga Prasad';
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s;cursor:pointer;';
-    img.onclick = () => document.getElementById('photoFile').click();
-    inner.appendChild(img);
-  };
-  reader.readAsDataURL(file);
-}
+/* ── PHOTO UPLOADER — disabled ── */
 
 /* ── YEAR ── */
 document.getElementById('yr').textContent = new Date().getFullYear();
