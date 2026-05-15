@@ -1941,20 +1941,21 @@ function closeCtModal(e) {
 /* ══════════════════════════════════════════════════════════════
    BLOGS — Fully Automatic GitHub-Powered System
    ══════════════════════════════════════════════════════════════
-   YOU ONLY NEED TO SET THESE TWO VALUES:
+   ⚙️  SET THESE TWO VALUES TO MATCH YOUR GITHUB REPO:
    ══════════════════════════════════════════════════════════════ */
 const GITHUB_USER = 'durgaprasad51';   // ← your GitHub username
-const BLOGS_REPO  = 'portfolio-blogs'; // ← your repo name
+const BLOGS_REPO  = 'my-portfolio';       // ← your repo name (where index.html lives)
 /* ══════════════════════════════════════════════════════════════
-   Everything else is automatic:
-   • Drop a .md file in the blogs/ folder of your repo
-   • Date stamp = auto (last commit date of that file via GitHub API)
-   • Read time  = auto (calculated from word count)
-   • Title      = auto (first # heading in the file)
-   • Excerpt    = auto (first paragraph of content)
-   • Tags       = auto (from <!-- tags: X, Y, Z --> comment in .md)
-   • Category   = auto (from <!-- category: X --> comment in .md)
-   • Signature  = auto ("By Durga Prasad" on every article)
+   Your repo structure should look like this:
+   your-repo/
+   ├── index.html        ← this file
+   ├── blogs/            ← put your .md files here
+   │   ├── _TEMPLATE.md
+   │   └── my-post.md
+   └── assets/           ← put your images here
+       └── photo.png
+
+   Everything is auto-detected — just drop .md files in blogs/
    ══════════════════════════════════════════════════════════════ */
 
 const GH_API = `https://api.github.com/repos/${GITHUB_USER}/${BLOGS_REPO}`;
@@ -2015,12 +2016,27 @@ function renderMarkdown(md) {
 
 /* ── Fetch file list from GitHub API ── */
 async function fetchBlogList() {
-  const res = await fetch(`${GH_API}/contents/blogs`, {
+  const url = `${GH_API}/contents/blogs`;
+  const res = await fetch(url, {
     headers: { 'Accept': 'application/vnd.github.v3+json' }
   });
-  if (!res.ok) throw new Error(`Cannot reach repo (${res.status}). Check GITHUB_USER and BLOGS_REPO.`);
+  if (res.status === 404) {
+    throw new Error(
+      `Repo or blogs/ folder not found. ` +
+      `Check: (1) GITHUB_USER="${GITHUB_USER}" is correct, ` +
+      `(2) BLOGS_REPO="${BLOGS_REPO}" matches your exact repo name, ` +
+      `(3) a blogs/ folder exists in the repo root, ` +
+      `(4) the repo is Public.`
+    );
+  }
+  if (!res.ok) {
+    throw new Error(`GitHub API error ${res.status}. Make sure your repo is Public.`);
+  }
   const files = await res.json();
-  return files.filter(f => f.name.endsWith('.md')).map(f => f.name);
+  // Filter .md files, skip _TEMPLATE
+  return files
+    .filter(f => f.name.endsWith('.md') && !f.name.startsWith('_'))
+    .map(f => f.name);
 }
 
 /* ── Fetch last-commit date for a file ── */
@@ -2038,8 +2054,9 @@ async function fetchFileDate(filename) {
 
 /* ── Fetch raw .md content ── */
 async function fetchRawMd(filename) {
-  const res = await fetch(`${GH_RAW}/${filename}`, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Could not load ${filename}`);
+  const url = `${GH_RAW}/${filename}`;
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Could not load ${filename} (${res.status}). Is the file in your blogs/ folder?`);
   return res.text();
 }
 
