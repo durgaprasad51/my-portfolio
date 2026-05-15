@@ -1,0 +1,64 @@
+name: Validate Blog Posts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blogs/**.md'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'blogs/**.md'
+
+jobs:
+  validate:
+    name: Validate Markdown Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check all .md files have a title
+        run: |
+          echo "Checking blog posts..."
+          FAILED=0
+          for f in blogs/*.md; do
+            # Skip the template file
+            [[ "$f" == *"_TEMPLATE"* ]] && continue
+
+            # Must have a # Title on the first non-empty line
+            TITLE=$(grep -m1 "^# " "$f" || true)
+            if [ -z "$TITLE" ]; then
+              echo "❌ MISSING TITLE in: $f  (add a '# Your Title' as the first heading)"
+              FAILED=1
+            else
+              echo "✅ $f  →  $TITLE"
+            fi
+          done
+          exit $FAILED
+
+      - name: Check category comment exists
+        run: |
+          echo "Checking categories..."
+          FAILED=0
+          for f in blogs/*.md; do
+            [[ "$f" == *"_TEMPLATE"* ]] && continue
+            CAT=$(grep -m1 "<!-- category:" "$f" || true)
+            if [ -z "$CAT" ]; then
+              echo "⚠️  No category in: $f  (add <!-- category: YourCategory -->)"
+            else
+              echo "✅ $f  →  $CAT"
+            fi
+          done
+          # Don't fail on missing category — it defaults to DevOps
+          exit 0
+
+      - name: Summary
+        run: |
+          COUNT=$(ls blogs/*.md 2>/dev/null | grep -v "_TEMPLATE" | wc -l)
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "  ✅ $COUNT blog post(s) validated"
+          echo "  🌐 Live on your portfolio automatically"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

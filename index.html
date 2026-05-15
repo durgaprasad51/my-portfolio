@@ -10,6 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- Markdown parser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 
 <style>
 /* ============================================================
@@ -690,8 +692,230 @@ section { padding: 90px 0; max-width: 1080px; margin: 0 auto; }
 }
 
 /* ============================================================
-   CONTACT — new layout
+   BLOGS
    ============================================================ */
+.blog-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+}
+.blog-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 28px 26px 24px;
+  transition: var(--tr); position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 12px;
+  text-decoration: none; color: inherit;
+}
+.blog-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s ease;
+}
+.blog-card:hover {
+  border-color: rgba(0,229,160,.28);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.5), 0 0 0 1px rgba(0,229,160,0.06);
+}
+.blog-card:hover::before { transform: scaleX(1); }
+
+.blog-meta {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: .65rem;
+  color: var(--slate); flex-wrap: wrap;
+}
+.blog-meta-tag {
+  color: var(--green); background: var(--green-dim);
+  border: 1px solid rgba(0,229,160,0.2);
+  padding: 2px 9px; border-radius: 100px;
+  font-size: .62rem;
+}
+.blog-meta-sep { opacity: 0.3; }
+.blog-title {
+  font-family: var(--sans);
+  font-size: 1.08rem; font-weight: 700;
+  color: var(--white); line-height: 1.35;
+  letter-spacing: -.01em;
+  transition: color .25s;
+}
+.blog-card:hover .blog-title { color: var(--green); }
+.blog-excerpt {
+  font-size: .87rem; line-height: 1.75;
+  color: var(--slate2); flex: 1;
+}
+.blog-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 4px;
+}
+.blog-read-time {
+  font-family: var(--mono); font-size: .64rem;
+  color: var(--slate); display: flex; align-items: center; gap: 5px;
+}
+.blog-arrow {
+  font-family: var(--mono); font-size: .68rem;
+  color: var(--green); display: flex; align-items: center; gap: 5px;
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity .25s, transform .25s;
+}
+.blog-card:hover .blog-arrow { opacity: 1; transform: translateX(0); }
+
+/* Hidden older blogs */
+.blog-older { display: none; }
+.blog-older.show { display: grid; }
+
+.blog-more-btn {
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 28px;
+}
+.blog-more-link {
+  font-family: var(--mono); font-size: .74rem;
+  color: var(--slate); padding: 9px 22px;
+  border: none; border-radius: 4px;
+  background: transparent; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: var(--tr); letter-spacing: .04em;
+}
+.blog-more-link:hover { color: var(--slate2); }
+.blog-more-link i { transition: transform .3s; }
+
+/* ============================================================
+   BLOGS FULL WINDOW OVERLAY
+   ============================================================ */
+.blogs-window-overlay {
+  display: none; position: fixed; inset: 0; z-index: 600;
+  background: var(--bg);
+  overflow-y: auto;
+  animation: blogsWinIn .35s cubic-bezier(.22,.68,0,1.1) both;
+}
+.blogs-window-overlay.open { display: block; }
+@keyframes blogsWinIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: none; }
+}
+.blogs-window-inner {
+  max-width: 1080px; margin: 0 auto;
+  padding: 100px 40px 80px;
+}
+.blogs-win-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 48px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.blogs-win-title {
+  font-family: var(--sans); font-size: 1.85rem; font-weight: 700;
+  color: var(--white); letter-spacing: -.02em;
+}
+.blogs-win-title em { color: var(--green); font-style: normal; }
+.blogs-win-close {
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; color: var(--slate);
+  font-size: 1rem; width: 40px; height: 40px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: var(--tr);
+}
+.blogs-win-close:hover { color: var(--green); border-color: rgba(0,229,160,.45); background: var(--green-dim); }
+.blogs-win-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+@media(max-width: 900px)  { .blogs-win-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width: 560px)  { .blogs-win-grid { grid-template-columns: 1fr; } .blogs-window-inner { padding: 24px 20px 60px; } }
+
+/* Clickable card inside window */
+.blogs-win-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px 22px 20px;
+  display: flex; flex-direction: column; gap: 10px;
+  cursor: pointer; transition: var(--tr); position: relative; overflow: hidden;
+}
+.blogs-win-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  transform: scaleX(0); transform-origin: left; transition: transform .3s;
+}
+.blogs-win-card:hover { border-color: rgba(0,229,160,.28); transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.5); }
+.blogs-win-card:hover::before { transform: scaleX(1); }
+.blogs-win-card:hover .blog-title { color: var(--green); }
+.blogs-win-card .blog-arrow { opacity: 1; transform: none; }
+
+/* ── ARTICLE DIALOG ── */
+.article-overlay {
+  display: none; position: fixed; inset: 0; z-index: 700;
+  background: rgba(4,8,15,0.85); backdrop-filter: blur(6px);
+  align-items: flex-start; justify-content: center;
+  overflow-y: auto; padding: 84px 20px 60px;
+}
+.article-overlay.open { display: flex; }
+.article-modal {
+  background: var(--bg2); border: 1px solid rgba(0,229,160,0.2);
+  border-radius: 14px; width: 100%; max-width: 780px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,229,160,0.05);
+  animation: modalPop .28s cubic-bezier(.22,.68,0,1.3) both;
+  overflow: hidden;
+}
+.article-modal-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 28px 32px 20px; border-bottom: 1px solid var(--border); gap: 16px;
+}
+.article-modal-meta {
+  font-family: var(--mono); font-size: .65rem; color: var(--slate);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.article-modal-tag {
+  color: var(--green); background: var(--green-dim);
+  border: 1px solid rgba(0,229,160,0.2);
+  padding: 2px 9px; border-radius: 100px; font-size: .62rem;
+}
+.article-modal-title {
+  font-family: var(--sans); font-size: 1.35rem; font-weight: 700;
+  color: var(--white); line-height: 1.3; letter-spacing: -.02em;
+}
+.article-modal-close {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  color: var(--slate); width: 36px; height: 36px; flex-shrink: 0;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: .95rem; transition: var(--tr); margin-top: 2px;
+}
+.article-modal-close:hover { color: var(--green); border-color: rgba(0,229,160,.45); background: var(--green-dim); }
+.article-modal-body {
+  padding: 28px 32px 36px;
+  font-size: .93rem; line-height: 1.85; color: var(--slate2);
+  max-height: 68vh; overflow-y: auto;
+}
+.article-modal-body::-webkit-scrollbar { width: 4px; }
+.article-modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.article-modal-body h3 {
+  font-family: var(--sans); font-size: 1.05rem; font-weight: 700;
+  color: var(--white); margin: 24px 0 10px; letter-spacing: -.01em;
+}
+.article-modal-body p { margin-bottom: 14px; }
+.article-modal-body code {
+  font-family: var(--mono); font-size: .8rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px; padding: 2px 7px; color: var(--green);
+}
+.article-modal-body pre {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 18px; overflow-x: auto;
+  font-family: var(--mono); font-size: .78rem; line-height: 1.7;
+  color: #aec6de; margin: 14px 0;
+}
+.article-modal-body ul { padding-left: 20px; margin-bottom: 14px; }
+.article-modal-body li { margin-bottom: 6px; }
+.article-modal-body strong { color: var(--white); font-weight: 600; }
+.article-modal-footer {
+  padding: 16px 32px 24px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.article-tag {
+  font-family: var(--mono); font-size: .63rem;
+  padding: 3px 10px; border-radius: 100px;
+  background: var(--bg2); border: 1px solid var(--border); color: var(--green);
+}
+
+
 #contact .float-num {
   font-family: var(--mono); position: absolute; right: 0;
   font-size: 6rem; font-weight: 800;
@@ -988,6 +1212,7 @@ footer a:hover { color: var(--green); }
   .sk-grid { grid-template-columns: 1fr 1fr; }
   .edu-grid { grid-template-columns: 1fr; }
   .proj-grid { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: 1fr; }
   .ct-bottom-row { flex-direction: column; }
   .ct-terminal { width: 100%; }
   .ct-h { white-space: normal; }
@@ -1030,6 +1255,7 @@ footer a:hover { color: var(--green); }
   <a href="#experience" onclick="closeMob()">Experience</a>
   <a href="#skills"     onclick="closeMob()">Tools</a>
   <a href="#projects"   onclick="closeMob()">Projects</a>
+  <a href="#blogs"      onclick="closeMob()">Blogs</a>
   <a href="#contact"    onclick="closeMob()">Contact</a>
 </div>
 
@@ -1049,7 +1275,8 @@ footer a:hover { color: var(--green); }
     <a href="#experience"><span class="nav-num">02.</span>Experience</a>
     <a href="#skills"><span class="nav-num">03.</span>Tools</a>
     <a href="#projects"><span class="nav-num">04.</span>Projects</a>
-    <a href="#contact"><span class="nav-num">05.</span>Contact</a>
+    <a href="#blogs"><span class="nav-num">05.</span>Blogs</a>
+    <a href="#contact"><span class="nav-num">06.</span>Contact</a>
   </nav>
   <button class="ham" id="ham" onclick="toggleMob()"><i class="fa-solid fa-bars" id="hamIcon"></i></button>
 </header>
@@ -1381,9 +1608,59 @@ footer a:hover { color: var(--green); }
 
   <div class="divider"></div>
 
+  <!-- ==================== BLOGS ==================== -->
+  <section id="blogs" style="position:relative;">
+    <div class="float-num">06</div>
+    <h2 class="sec-title rv"><em>Blogs</em></h2>
+
+    <!-- ── Latest 2 blogs (always visible) ── -->
+    <div class="blog-grid">
+
+      <div class="blog-card rv" onclick="openArticle(0)" style="cursor:pointer;">
+        <div class="blog-meta">
+          <span class="blog-meta-tag">Kubernetes</span>
+          <span class="blog-meta-sep">·</span>
+          <span>May 2025</span>
+        </div>
+        <div class="blog-title">Zero-Downtime Deployments on EKS: Rolling Updates vs Blue/Green vs Canary</div>
+        <div class="blog-excerpt">A practical deep-dive into the three main deployment strategies for Kubernetes on AWS EKS — when to reach for each one, how to configure them with Helm, and how ArgoCD's rollout controller can automate the whole pipeline.</div>
+        <div class="blog-footer">
+          <span class="blog-read-time"><i class="fa-regular fa-clock"></i> 8 min read</span>
+          <span class="blog-arrow">Read more <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+      <div class="blog-card rv" onclick="openArticle(1)" style="cursor:pointer;">
+        <div class="blog-meta">
+          <span class="blog-meta-tag">Terraform</span>
+          <span class="blog-meta-sep">·</span>
+          <span>Apr 2025</span>
+        </div>
+        <div class="blog-title">Terraform State Management at Scale: Remote Backends, Locking &amp; Workspaces</div>
+        <div class="blog-excerpt">Managing Terraform state for a single environment is easy. Managing it across 10+ environments with multiple teams hitting the same infrastructure is a different beast entirely. Here's the architecture that actually works in production.</div>
+        <div class="blog-footer">
+          <span class="blog-read-time"><i class="fa-regular fa-clock"></i> 10 min read</span>
+          <span class="blog-arrow">Read more <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Show more button ── -->
+    <div class="blog-more-btn">
+      <button class="blog-more-link" onclick="openBlogsWindow()">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>Click For More <span style="color:var(--green);">Blogs</span></span>
+      </button>
+    </div>
+
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ==================== CONTACT ==================== -->
   <section id="contact" style="position:relative;">
-    <div class="float-num">06</div>
+    <div class="float-num">07</div>
 
     <div class="ct-title-row rv">
       <h2 class="ct-h">Let's <em>Work</em> Together</h2>
@@ -1454,6 +1731,44 @@ footer a:hover { color: var(--green); }
     </div>
   </section>
 
+<!-- ==================== BLOGS FULL WINDOW ==================== -->
+<div class="blogs-window-overlay" id="blogsWindow">
+  <div class="blogs-window-inner">
+    <div class="blogs-win-header">
+      <h2 class="blogs-win-title">All <em>Blogs</em></h2>
+      <button class="blogs-win-close" onclick="closeBlogsWindow()" title="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <!-- Loading state -->
+    <div id="blogsWinLoading" style="text-align:center;padding:60px 0;font-family:var(--mono);font-size:.8rem;color:var(--slate);">
+      <i class="fa-solid fa-circle-notch fa-spin" style="color:var(--green);font-size:1.4rem;display:block;margin-bottom:14px;"></i>
+      Fetching blogs from GitHub...
+    </div>
+    <!-- Error state -->
+    <div id="blogsWinError" style="display:none;text-align:center;padding:60px 0;font-family:var(--mono);font-size:.8rem;color:var(--slate);">
+      <i class="fa-solid fa-triangle-exclamation" style="color:#f07178;font-size:1.4rem;display:block;margin-bottom:14px;"></i>
+      <span id="blogsWinErrorMsg">Could not load blogs.</span><br><br>
+      <span style="font-size:.7rem;opacity:.6;">Check your GITHUB_USER and BLOGS_REPO config at the top of the script.</span>
+    </div>
+    <!-- Cards grid — populated by JS -->
+    <div class="blogs-win-grid" id="blogsWinGrid" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ==================== ARTICLE DIALOG ==================== -->
+<div class="article-overlay" id="articleOverlay" onclick="closeArticleOnBg(event)">
+  <div class="article-modal" id="articleModal">
+    <div class="article-modal-head">
+      <div>
+        <div class="article-modal-meta" id="articleMeta"></div>
+        <div class="article-modal-title" id="articleTitle"></div>
+      </div>
+      <button class="article-modal-close" onclick="closeArticle()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="article-modal-body" id="articleBody"></div>
+    <div class="article-modal-footer" id="articleFooter"></div>
+  </div>
+</div>
+
 </main>
 
 <!-- FOOTER -->
@@ -1499,7 +1814,7 @@ function animCursor() {
   requestAnimationFrame(animCursor);
 }
 animCursor();
-document.querySelectorAll('a,button,.pill-a,.pill,.tab,.sk-card,.ct-drop-item,.ct-connect-btn').forEach(el => {
+document.querySelectorAll('a,button,.pill-a,.pill,.tab,.sk-card,.ct-drop-item,.ct-connect-btn,.blog-card').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
@@ -1623,7 +1938,283 @@ function closeCtModal(e) {
   if (chevron) chevron.classList.remove('open');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCtModal(); } });
+/* ══════════════════════════════════════════════════════════════
+   BLOGS — Fully Automatic GitHub-Powered System
+   ══════════════════════════════════════════════════════════════
+   YOU ONLY NEED TO SET THESE TWO VALUES:
+   ══════════════════════════════════════════════════════════════ */
+const GITHUB_USER = 'durgaprasad51';   // ← your GitHub username
+const BLOGS_REPO  = 'portfolio-blogs'; // ← your repo name
+/* ══════════════════════════════════════════════════════════════
+   Everything else is automatic:
+   • Drop a .md file in the blogs/ folder of your repo
+   • Date stamp = auto (last commit date of that file via GitHub API)
+   • Read time  = auto (calculated from word count)
+   • Title      = auto (first # heading in the file)
+   • Excerpt    = auto (first paragraph of content)
+   • Tags       = auto (from <!-- tags: X, Y, Z --> comment in .md)
+   • Category   = auto (from <!-- category: X --> comment in .md)
+   • Signature  = auto ("By Durga Prasad" on every article)
+   ══════════════════════════════════════════════════════════════ */
+
+const GH_API = `https://api.github.com/repos/${GITHUB_USER}/${BLOGS_REPO}`;
+const GH_RAW = `https://raw.githubusercontent.com/${GITHUB_USER}/${BLOGS_REPO}/main/blogs`;
+
+let BLOG_INDEX   = [];
+let articleCache = {};
+
+/* ── Helpers ── */
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function calcReadTime(text) {
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200)) + ' min read';
+}
+
+function formatDate(isoString) {
+  const d = new Date(isoString);
+  return MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function extractMeta(rawMd) {
+  // Title: first # heading
+  const titleMatch = rawMd.match(/^#\s+(.+)$/m);
+  const title = titleMatch ? titleMatch[1].trim() : 'Untitled';
+
+  // Category: <!-- category: Kubernetes -->
+  const catMatch = rawMd.match(/<!--\s*category:\s*(.+?)\s*-->/i);
+  const category = catMatch ? catMatch[1].trim() : 'DevOps';
+
+  // Tags: <!-- tags: K8s, AWS, Helm -->
+  const tagsMatch = rawMd.match(/<!--\s*tags:\s*(.+?)\s*-->/i);
+  const tags = tagsMatch
+    ? tagsMatch[1].split(',').map(t => t.trim()).filter(Boolean)
+    : [];
+
+  // Excerpt: first non-empty paragraph that isn't a heading or comment
+  const lines = rawMd.split('\n');
+  let excerpt = '';
+  for (const line of lines) {
+    const l = line.trim();
+    if (!l || l.startsWith('#') || l.startsWith('<!--') || l.startsWith('!')) continue;
+    excerpt = l.replace(/[*_`]/g, '').substring(0, 160);
+    if (excerpt.length === 160) excerpt += '…';
+    break;
+  }
+
+  return { title, category, tags, excerpt };
+}
+
+function renderMarkdown(md) {
+  if (typeof marked === 'undefined') return `<pre>${md}</pre>`;
+  marked.setOptions({ breaks: true, gfm: true });
+  // Remove HTML comments before rendering
+  const clean = md.replace(/<!--[\s\S]*?-->/g, '');
+  return marked.parse(clean);
+}
+
+/* ── Fetch file list from GitHub API ── */
+async function fetchBlogList() {
+  const res = await fetch(`${GH_API}/contents/blogs`, {
+    headers: { 'Accept': 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) throw new Error(`Cannot reach repo (${res.status}). Check GITHUB_USER and BLOGS_REPO.`);
+  const files = await res.json();
+  return files.filter(f => f.name.endsWith('.md')).map(f => f.name);
+}
+
+/* ── Fetch last-commit date for a file ── */
+async function fetchFileDate(filename) {
+  try {
+    const res = await fetch(
+      `${GH_API}/commits?path=blogs/${filename}&per_page=1`,
+      { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+    );
+    if (!res.ok) return new Date().toISOString();
+    const commits = await res.json();
+    return commits[0]?.commit?.committer?.date || new Date().toISOString();
+  } catch { return new Date().toISOString(); }
+}
+
+/* ── Fetch raw .md content ── */
+async function fetchRawMd(filename) {
+  const res = await fetch(`${GH_RAW}/${filename}`, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Could not load ${filename}`);
+  return res.text();
+}
+
+/* ── Build the full index by reading each .md file ── */
+async function buildBlogIndex() {
+  const filenames = await fetchBlogList();
+
+  const blogs = await Promise.all(filenames.map(async (filename) => {
+    try {
+      const [raw, dateIso] = await Promise.all([
+        fetchRawMd(filename),
+        fetchFileDate(filename)
+      ]);
+      const { title, category, tags, excerpt } = extractMeta(raw);
+      return {
+        file: filename,
+        title,
+        tag: category,
+        tags,
+        excerpt,
+        date: formatDate(dateIso),
+        dateRaw: dateIso,
+        read: calcReadTime(raw),
+        raw
+      };
+    } catch {
+      return null;
+    }
+  }));
+
+  // Filter nulls, sort newest first
+  return blogs
+    .filter(Boolean)
+    .sort((a, b) => new Date(b.dateRaw) - new Date(a.dateRaw));
+}
+
+/* ── Render cards grid ── */
+function renderBlogCards(blogs) {
+  const grid = document.getElementById('blogsWinGrid');
+  if (!blogs.length) {
+    grid.innerHTML = `<p style="font-family:var(--mono);font-size:.8rem;color:var(--slate);grid-column:1/-1;text-align:center;padding:40px 0;">
+      No blog posts found. Add some .md files to the blogs/ folder in your repo.</p>`;
+    return;
+  }
+  grid.innerHTML = blogs.map((b, i) => `
+    <div class="blogs-win-card" onclick="openArticle(${i})">
+      <div class="blog-meta">
+        <span class="blog-meta-tag">${b.tag}</span>
+        <span class="blog-meta-sep">·</span>
+        <span><i class="fa-regular fa-calendar-days"></i> ${b.date}</span>
+        <span class="blog-meta-sep">·</span>
+        <span><i class="fa-regular fa-clock"></i> ${b.read}</span>
+      </div>
+      <div class="blog-title">${b.title}</div>
+      <div class="blog-excerpt">${b.excerpt}</div>
+      <div class="blog-footer">
+        <span class="blog-arrow" style="opacity:1;transform:none;">Read article <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── Update the 2 featured cards on the main page ── */
+function updateFeaturedCards(blogs) {
+  const cards = document.querySelectorAll('.blog-card.rv');
+  blogs.slice(0, 2).forEach((b, i) => {
+    if (!cards[i]) return;
+    cards[i].setAttribute('onclick', `openArticle(${i})`);
+    cards[i].querySelector('.blog-meta-tag').textContent = b.tag;
+    const spans = cards[i].querySelectorAll('.blog-meta span:not(.blog-meta-tag):not(.blog-meta-sep)');
+    if (spans[0]) spans[0].textContent = b.date;
+    cards[i].querySelector('.blog-title').textContent = b.title;
+    cards[i].querySelector('.blog-excerpt').textContent = b.excerpt;
+    const rt = cards[i].querySelector('.blog-read-time');
+    if (rt) rt.innerHTML = `<i class="fa-regular fa-clock"></i> ${b.read}`;
+  });
+}
+
+/* ── Open blogs window ── */
+async function openBlogsWindow() {
+  document.getElementById('blogsWindow').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (BLOG_INDEX.length > 0) return; // already loaded
+
+  const loading = document.getElementById('blogsWinLoading');
+  const error   = document.getElementById('blogsWinError');
+  const grid    = document.getElementById('blogsWinGrid');
+
+  loading.style.display = 'block';
+  error.style.display   = 'none';
+  grid.style.display    = 'none';
+
+  try {
+    BLOG_INDEX = await buildBlogIndex();
+    renderBlogCards(BLOG_INDEX);
+    loading.style.display = 'none';
+    grid.style.display    = 'grid';
+  } catch (err) {
+    loading.style.display = 'none';
+    document.getElementById('blogsWinErrorMsg').textContent = err.message;
+    error.style.display = 'block';
+  }
+}
+
+function closeBlogsWindow() {
+  document.getElementById('blogsWindow').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── Open article dialog ── */
+async function openArticle(idx) {
+  const b = BLOG_INDEX[idx];
+  if (!b) return;
+
+  document.getElementById('articleMeta').innerHTML =
+    `<span class="article-modal-tag">${b.tag}</span>
+     <span class="blog-meta-sep">·</span>
+     <span><i class="fa-regular fa-calendar-days"></i> ${b.date}</span>
+     <span class="blog-meta-sep">·</span>
+     <span><i class="fa-regular fa-clock"></i> ${b.read}</span>`;
+  document.getElementById('articleTitle').textContent = b.title;
+  document.getElementById('articleBody').innerHTML =
+    `<div style="text-align:center;padding:40px 0;font-family:var(--mono);font-size:.8rem;color:var(--slate);">
+       <i class="fa-solid fa-circle-notch fa-spin" style="color:var(--green);font-size:1.2rem;display:block;margin-bottom:12px;"></i>
+       Loading article...
+     </div>`;
+  document.getElementById('articleFooter').innerHTML =
+    (b.tags || []).map(t => `<span class="article-tag">${t}</span>`).join('') +
+    `<span style="margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--slate);font-style:italic;">
+       By <span style="color:var(--green);font-style:normal;">Durga Prasad</span>
+     </span>`;
+  document.getElementById('articleOverlay').classList.add('open');
+  document.getElementById('articleBody').scrollTop = 0;
+
+  try {
+    // Use cached raw if available, otherwise fetch
+    const raw = b.raw || await fetchRawMd(b.file);
+    // Strip the title (first # line) so it doesn't double-render
+    const withoutTitle = raw.replace(/^#\s+.+\n?/, '');
+    const html = renderMarkdown(withoutTitle);
+    // Append signature at the end
+    document.getElementById('articleBody').innerHTML = html +
+      `<div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);
+          font-family:var(--mono);font-size:.78rem;color:var(--slate);text-align:right;">
+         Published <strong style="color:var(--slate2);">${b.date}</strong>
+         &nbsp;·&nbsp; <i class="fa-regular fa-clock"></i> ${b.read}
+         <br><br>
+         <span style="font-size:.9rem;color:var(--slate2);">By </span>
+         <span style="font-size:.95rem;color:var(--green);font-weight:600;">Durga Prasad</span>
+       </div>`;
+  } catch (err) {
+    document.getElementById('articleBody').innerHTML =
+      `<p style="color:#f07178;font-family:var(--mono);font-size:.8rem;">
+         <i class="fa-solid fa-triangle-exclamation"></i> Could not load article: ${err.message}
+       </p>`;
+  }
+}
+
+function closeArticle() {
+  document.getElementById('articleOverlay').classList.remove('open');
+}
+function closeArticleOnBg(e) {
+  if (e.target === document.getElementById('articleOverlay')) closeArticle();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeArticle(); closeBlogsWindow(); }
+});
+
+/* ── On page load: silently build index to populate featured cards ── */
+window.addEventListener('load', async () => {
+  try {
+    BLOG_INDEX = await buildBlogIndex();
+    updateFeaturedCards(BLOG_INDEX);
+  } catch(_) { /* silently fail — featured cards keep their placeholder text */ }
+});
 
 </script>
 
