@@ -1,63 +1,175 @@
-# A perfect CI/CD for Portfolio Deployments
+# Mastering Git for DevOps with Simple but Powerful Commands
 
-<!-- category: GitHub Action-->
-<!-- tags: Git, GitHub Action, HTML, CSS, JS -->
+<!-- category: DevOps -->
+<!-- tags: Git, Version Control, DevOps, CI/CD, GitHub -->
 
-GItHub Action solves the most demanding component of DevOps called CI/CD. Which makes things continuously `Integrated` and `Delivered / Deployed`.
+Git with powerful real-world DevOps usage. This blog explains concepts clearly with real scenarios and then shows commands used in actual projects.
 
-## CI / CD
+## First Section Heading
 
-`Continuously Integration` - Devepoler Writes code on his system and pushes it to the `GIT` , Where the code will go through the variuos phases like `code build` `code test` then it will be integrated with rest of the code or with other developers code. 
+Git is a distributed version control system that helps track changes and manage collaboration.
 
-`Delivered / Deployed` - Once the code is fully tested, it will be push to Main or Master branch. If this process needs a manual approval to get pushed to Main/Master branch it's called Delivery. And if all that is happing in a pipeline (Auto approved) then it is called Deployed or Deployment.
+In DevOps, Git is used not just for code but also for infrastructure, pipelines, and configuration files.
 
-```
-git   init
-git add (file name)
-git commit -m "First commit"
-git push origin main/master
+### Scenario
 
-```
+You are working in a team of 5 developers. Everyone is changing code daily. Without Git, files will overwrite each other. With Git, every change is tracked and merged safely.
 
-**Best for:** CICD Pipeline.
+### Core Concept
 
-**Risk:** .
+Git works with 3 main areas:
+- Working Directory → where you edit code  
+- Staging Area → where you prepare changes  
+- Repository → where history is stored  
 
-## Blue/Green — Full Swap, Zero Overlap
+### Basic Setup & Starting Work
 
-Spin up the new environment in full, then switch traffic at the Ingress level. ArgoCD's `BlueGreenStrategy` handles this natively:
+~~~bash
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+git config --list
 
-```yaml
-blueGreen:
-  activeService: my-app-active
-  previewService: my-app-preview
-  autoPromotionEnabled: false
-```
+git init
+git clone https://github.com/user/repo.git
+git status
+~~~
 
-**Best for:** Releases requiring instant rollback or database schema changes.
+### Adding and Saving Work
 
-**Cost:** Doubles resource consumption during the swap window.
+When you complete a small task, you save it using commit.
 
-## Canary — Progressive Traffic Shifting
+~~~bash
+git add .
+git commit -m "Added login feature"
+git push origin main
+~~~
 
-Route a small percentage of real traffic to the new version first:
+👉 Always commit small changes instead of big ones.
 
-```yaml
-canary:
-  steps:
-  - setWeight: 10
-  - pause: {duration: 5m}
-  - setWeight: 50
-  - pause: {duration: 10m}
-  - setWeight: 100
-```
+## Second Section Heading
 
-**Best for:** High-traffic services where you want real-world validation. Pair with Prometheus and `analysisRun` for fully automated promotion or rollback.
+Branching is the most important concept in DevOps.
 
-## Which One to Choose?
+### Scenario
 
-- **Need instant rollback?** → Blue/Green
-- **Resource-constrained?** → Rolling Update
-- **Want real traffic validation first?** → Canary
+You are building a login feature, but the main branch is used for production. If you directly change main, you may break production.
 
-In practice: Rolling Updates for internal services, Blue/Green for customer-facing APIs, and Canary for anything touching payments or auth.
+Solution → Use branches.
+
+### Branching Concept
+
+Each feature should be developed in its own branch.
+
+### Create and Work on Branch
+
+~~~bash
+git checkout -b feature-login
+~~~
+
+Now all your changes are isolated.
+
+### Merge Back to Main
+
+After testing:
+
+~~~bash
+git checkout main
+git merge feature-login
+~~~
+
+### Working with Remote Teams
+
+In real DevOps teams, multiple people push code.
+
+~~~bash
+git fetch origin
+git pull origin main
+~~~
+
+👉 Always pull latest code before starting work.
+
+### Advanced Git (Real Problems)
+
+#### Scenario: You made a wrong commit
+
+~~~bash
+git reset --soft HEAD~1
+~~~
+
+#### Scenario: You want to completely remove changes
+
+~~~bash
+git reset --hard HEAD~1
+~~~
+
+#### Scenario: You want clean commit history
+
+~~~bash
+git rebase main
+~~~
+
+👉 Rebase is used in professional projects for clean history.
+
+### Temporary Work Handling
+
+#### Scenario: You need to switch task but not ready to commit
+
+~~~bash
+git stash
+git stash pop
+~~~
+
+### Release Management
+
+#### Scenario: You are deploying version 1.0
+
+~~~bash
+git tag v1.0
+git push origin v1.0
+~~~
+
+Tags are used in CI/CD pipelines for releases.
+
+### Best Practices
+
+- Never push directly to main branch  
+- Always create feature branches  
+- Write clear commit messages  
+- Pull before push  
+- Avoid using `--force` unless necessary  
+
+## Code Block
+
+### Real DevOps Workflow Example
+
+~~~bash
+git checkout -b feature-api
+git add .
+git commit -m "Added API"
+git push origin feature-api
+~~~
+
+### CI/CD Deployment Trigger
+
+~~~bash
+git add .
+git commit -m "Deploy update"
+git push origin main
+~~~
+
+👉 This push can trigger:
+- Jenkins pipeline  
+- GitHub Actions  
+- GitLab CI/CD  
+
+## Adding an Image
+
+![Git Workflow](assets/git-workflow.png)
+
+## Key Takeaways
+
+- Git is the backbone of DevOps  
+- Branching prevents breaking production  
+- Rebase helps maintain clean history  
+- Stash helps manage unfinished work  
+- Git integrates directly with CI/CD pipelines  
